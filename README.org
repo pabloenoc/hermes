@@ -1,0 +1,7 @@
+#+TITLE: Hermess
+#+AUTHOR: Pablo Enoc
+#+DATE: jueves 8 de enero 2026
+
+Hermess es una aplicación para definir fuentes de información y mantenerse al tanto de las mismas.
+
+Las fechas en los grupos generan urgencia innecesaria.
