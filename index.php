@@ -4,11 +4,16 @@ require_once('vendor/Feed.php');
 Feed::$cacheDir = __DIR__ . '/tmp';
 Feed::$cacheExpire = '5 hours';
 
-$urls = [
-    "https://bearblog.dev/discover/feed/",
-    "https://halloumithoughts.bearblog.dev/feed/",
-    "https://www.teamcherry.com.au/blog?format=rss"
-];
+$db = new SQLITE3('./db/hrmss.sqlite');
+$result = $db->query('
+    SELECT url
+    FROM feeds
+');
+
+$urls = [];
+while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+    $urls[] = $row['url'];
+}
 
 $feeds = [];
 
@@ -63,7 +68,7 @@ foreach($urls as $url) {
 			  <summary class="feed__title"><?= $feed->title ?></summary>
 		      <?php foreach($feed->entry as $entry): ?>
 			  <div class="post">
-			      <p class="post__title"><a href="<?= $entry->url; ?>" class="post__link"><?= $entry->title; ?></a></p>
+			      <p class="post__title"><a target="_blank" href="<?= $entry->url; ?>" class="post__link"><?= $entry->title; ?></a></p>
 			  </div>
 		      <?php endforeach; ?>
 		      </details>
