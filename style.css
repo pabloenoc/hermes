@@ -41,11 +41,21 @@ navbar h1 span {
     width: 24px;
 }
 
-.post {
+.feed {
     padding: 1rem;
+}
+
+.feed__title {
+    margin: 0;
+    margin-bottom: 1rem;
+    font-size: 1.15rem;
+}
+
+.post {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    margin-bottom: 0.5rem;
 }
 
 
@@ -57,6 +67,12 @@ navbar h1 span {
 .post__link {
     text-decoration: none;
     color: #2581d2;
+}
+
+.post__link:visited {
+    display: none;
+    visibility: hidden;
+    color: purple;
 }
 
 .post__link:hover {
