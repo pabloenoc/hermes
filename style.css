@@ -119,3 +119,32 @@ navbar h1 a {
     color: red;
     cursor: pointer;
 }
+
+.btn-submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid  #2581d2;
+    background: none;
+    padding: 0.5rem;
+    color:  #2581d2 ;
+    border-radius: 4px;
+}
+
+.btn-submit:hover {
+    cursor: pointer;
+    background-color:  #2581d2;
+    color: white;
+}
+
+.btn-submit svg {
+    height: 24px;
+    width: 24px;
+}
+
+input[type="url"] {
+    padding: 0 1rem;
+    font-size: 1rem;
+    border: 1px solid gray;
+    border-radius: 4px;
+}
