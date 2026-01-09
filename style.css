@@ -47,7 +47,6 @@ navbar h1 span {
 
 .feed__title {
     margin: 0;
-    margin-bottom: 1rem;
     font-size: 1.15rem;
 }
 
@@ -55,6 +54,7 @@ navbar h1 span {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    margin-top: 1rem;
     margin-bottom: 0.5rem;
 }
 
