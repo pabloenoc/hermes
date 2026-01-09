@@ -35,6 +35,11 @@ navbar h1 span {
     font-weight: bold;
 }
 
+navbar h1 a {
+    color: inherit;
+    text-decoration: none;
+}
+
 .ui-icon {
     color: gray;
     height: 24px;
