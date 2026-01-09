@@ -1,8 +1,15 @@
 <?php
 
 require_once('vendor/Feed.php');
+Feed::$cacheDir = __DIR__ . '/tmp';
+Feed::$cacheExpire = '5 hours';
 
-$urls = ["https://enocc.com/feed.xml", "https://bucareli.blog/feed.xml"];
+$urls = [
+    "https://bearblog.dev/discover/feed/",
+    "https://halloumithoughts.bearblog.dev/feed/",
+    "https://www.teamcherry.com.au/blog?format=rss"
+];
+
 $feeds = [];
 
 foreach($urls as $url) {
@@ -46,14 +53,42 @@ foreach($urls as $url) {
           
       </navbar>
       <main>
-      <?php foreach ($feeds as $feed): ?>
-        <?php foreach ($feed->entry as $item): ?>
-        <div class="post">
-          <p class="post__title"><a href="<?= $item->url; ?>" class="post__link"><?= $item->title; ?></a></p>
-          <p class="post__author"><?= $feed->author->name ?></p>
-        </div>
-        <?php endforeach ?>
-    <?php endforeach ?>
+	  <?php foreach ($feeds as $feed): ?>
+	      <?php if ($feed->entry): ?>
+
+		  <div class="feed">
+		      <details>
+			  <summary class="feed__title"><?= $feed->title ?></summary>
+		      <?php foreach($feed->entry as $entry): ?>
+			  <div class="post">
+			      <p class="post__title"><a href="<?= $entry->url; ?>" class="post__link"><?= $entry->title; ?></a></p>
+			  </div>
+		      <?php endforeach; ?>
+		      </details>
+		  </div>
+
+	      <?php endif; ?>
+
+	      <?php if ($feed->item): ?>
+		    <div class="feed">
+		      <details>
+			  <summary class="feed__title"><?= $feed->title ?></summary>
+		      <?php foreach($feed->item as $item): ?>
+			  <div class="post">
+			      <p class="post__title"><a href="<?= $item->link; ?>" class="post__link"><?= $item->title; ?></a></p>
+			  </div>
+		      <?php endforeach; ?>
+		      </details>
+		    </div>
+	      <?php endif; ?>
+	    
+	  <?php endforeach; ?>
+
+
+
+
+
+      
       </main>
     </body>
 </html>
