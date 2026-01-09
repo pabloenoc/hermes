@@ -1,0 +1,95 @@
+<?php
+
+// SETTINGS.PHP
+
+// Allow users to add new feeds
+// Allow users to delete existing feeds
+
+$db = new SQLITE3('./db/hrmss.sqlite');
+
+$result = $db->query('
+    SELECT id, title, url
+    FROM feeds
+');
+
+$feeds = [];
+
+while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+    $feeds[] = $row;
+}
+
+// DELETE
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
+{
+    $stmt = $db->prepare('DELETE FROM feeds WHERE id = :id');
+    $stmt->bindValue(':id', (int)$_POST['delete_feed_id'], SQLITE3_INTEGER);
+    $stmt->execute();
+
+    header('Location: ' . $_SERVER['REQUEST_URI']);
+    exit;
+ }
+
+// var_dump($feeds);
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+      <title>hrmss</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+      <navbar>
+          <h1><a href="/">h<span>r</span>m<span>ss</span></a></h1>
+          <!--
+          category: System
+          tags: [cog, edit, gear, preferences, tools]
+          version: "1.0"
+          unicode: "eb20"
+          -->
+	  <a href="/settings.php">
+          <svg class="ui-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+            <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+          </svg>
+	  </a>
+          
+      </navbar>
+      <main>
+	  <h2>Your Feeds</h2>
+	  <?php foreach ($feeds as $feed): ?>
+	      <div class="feed flex justify-between">
+		  <div>
+		      <p class="feed__title"><?= $feed['title'] ?></p>
+		      <p class="feed_url"><?= $feed['url'] ?></p>
+		  </div>
+		  <div>
+		      <form method="post" style="margin:0;">
+			  <input type="hidden" name="delete_feed_id" value="<?= $feed['id'] ?>">
+			  <button type="submit" title="Delete feed" class="btn-delete" onclick="return confirm('Delete feed?')">
+			      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+				  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+				  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+			      </svg>
+			  </button>
+		      </form>
+		  </div>
+	      </div>
+	  <?php endforeach; ?>
+      </main>
+    </body>
+</html>
