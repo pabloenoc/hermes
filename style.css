@@ -46,6 +46,11 @@ navbar h1 a {
     width: 24px;
 }
 
+.ui-icon:hover {
+    cursor: pointer;
+    color: #2581d2;
+}
+
 .feed {
     padding: 1rem;
 }
@@ -53,6 +58,12 @@ navbar h1 a {
 .feed__title {
     margin: 0;
     font-size: 1.15rem;
+}
+
+.feed_url {
+    color: gray;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
 }
 
 .post {
@@ -88,4 +99,23 @@ navbar h1 a {
 .post__author {
     font-size: 0.8rem;
     color: #8a8a8a;
+}
+
+/* utilities */
+
+.flex { display: flex; }
+.justify-between {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-delete {
+    background: none;
+    border: none;
+    color: #c2c2c2;
+}
+
+.btn-delete:hover {
+    color: red;
+    cursor: pointer;
 }
