@@ -59,12 +59,12 @@ foreach($urls as $url) {
 	  </a>
           
       </navbar>
-      <main>
+      <main class="grid-3">
 	  <?php foreach ($feeds as $feed): ?>
 	      <?php if ($feed->entry): ?>
 
 		  <div class="feed">
-		      <details>
+		      <details open>
 			  <summary class="feed__title"><?= $feed->title ?></summary>
 		      <?php foreach($feed->entry as $entry): ?>
 			  <div class="post">
@@ -78,11 +78,11 @@ foreach($urls as $url) {
 
 	      <?php if ($feed->item): ?>
 		    <div class="feed">
-		      <details>
+		      <details open>
 			  <summary class="feed__title"><?= $feed->title ?></summary>
 		      <?php foreach($feed->item as $item): ?>
 			  <div class="post">
-			      <p class="post__title"><a href="<?= $item->link; ?>" class="post__link"><?= $item->title; ?></a></p>
+			      <p class="post__title"><a target="_blank" href="<?= $item->link; ?>" class="post__link"><?= $item->title; ?></a></p>
 			  </div>
 		      <?php endforeach; ?>
 		      </details>
