@@ -27,13 +27,13 @@ foreach($urls as $url) {
 <!doctype html>
 <html>
     <head>
-      <title>hrmss</title>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="style.css">
+	<title>hrmss</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
     </head>
     <body>
-      <navbar>
+	<navbar>
 	  <h1><a href="/">h<span>r</span>m<span>ss</span></a></h1>
           <!--
                category: System
@@ -58,44 +58,48 @@ foreach($urls as $url) {
           </svg>
 	  </a>
           
-      </navbar>
-      <main class="grid-3">
-	  <?php foreach ($feeds as $feed): ?>
-	      <?php if ($feed->entry): ?>
+		</navbar>
+	
+	<?php if (count($feeds) === 0): ?>
+	    <main style="text-align: center;">
+		<p class="mt-2">You have no feeds yet! </p>
+		<p><a style="color:var(--color-link); text-decoration: none;" href="/settings.php">Add feed</a></p>
+	    </main>
+	<?php else: ?>
+	    <main class="grid-3">
+		<?php foreach ($feeds as $feed): ?>
+		    <?php if ($feed->entry): ?>
 
-		  <div class="feed">
-		      <details open>
-			  <summary class="feed__title"><?= $feed->title ?></summary>
-		      <?php foreach($feed->entry as $entry): ?>
-			  <div class="post">
-			      <p class="post__title"><a target="_blank" href="<?= $entry->url; ?>" class="post__link"><?= $entry->title; ?></a></p>
-			  </div>
-		      <?php endforeach; ?>
-		      </details>
-		  </div>
+			<div class="feed">
+			    <details open>
+				<summary class="feed__title"><?= $feed->title ?></summary>
+				<?php foreach($feed->entry as $entry): ?>
+				    <div class="post">
+					<p class="post__title"><a target="_blank" href="<?= $entry->url; ?>" class="post__link"><?= $entry->title; ?></a></p>
+				    </div>
+				<?php endforeach; ?>
+			    </details>
+			</div>
 
-	      <?php endif; ?>
+		    <?php endif; ?>
 
-	      <?php if ($feed->item): ?>
-		    <div class="feed">
-		      <details open>
-			  <summary class="feed__title"><?= $feed->title ?></summary>
-		      <?php foreach($feed->item as $item): ?>
-			  <div class="post">
-			      <p class="post__title"><a target="_blank" href="<?= $item->link; ?>" class="post__link"><?= $item->title; ?></a></p>
-			  </div>
-		      <?php endforeach; ?>
-		      </details>
-		    </div>
-	      <?php endif; ?>
-	    
-	  <?php endforeach; ?>
+		    <?php if ($feed->item): ?>
+			<div class="feed">
+			    <details open>
+				<summary class="feed__title"><?= $feed->title ?></summary>
+				<?php foreach($feed->item as $item): ?>
+				    <div class="post">
+					<p class="post__title"><a target="_blank" href="<?= $item->link; ?>" class="post__link"><?= $item->title; ?></a></p>
+				    </div>
+				<?php endforeach; ?>
+			    </details>
+			</div>
+		    <?php endif; ?>
+		    
+		<?php endforeach; ?>
+	    </main>
+	<?php endif; ?>
 
-
-
-
-
-      
-      </main>
+	
     </body>
 </html>
