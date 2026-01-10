@@ -15,7 +15,7 @@ body {
 
 body main {
     flex: 1;
-/*    background-color: aliceblue;*/
+    max-width: 680px;
 }
 
 navbar {
@@ -103,6 +103,12 @@ navbar h1 a {
 
 /* utilities */
 
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1rem;
+    max-width: 100%;
+}
 .flex { display: flex; }
 .justify-between {
     justify-content: space-between;
