@@ -5,3 +5,21 @@
 Hermess es una aplicación para definir fuentes de información y mantenerse al tanto de las mismas.
 
 Las fechas en los grupos generan urgencia innecesaria.
+
+Un filtro sería mostrar solamente algunas fechas en los 
+posts... 
+
+Display posts: 
+
+- All
+- Today
+- 1 week old
+- 1 month old
+
+** Changelog
+
+*** 2026-01-09
+
+- Use sqlite database
+- Create column view
+-
