@@ -1,3 +1,7 @@
+:root {
+    --color-link: #2581d2;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -13,9 +17,10 @@ body {
     flex-direction: column;
 }
 
-body main {
+body main:not([class]) {
     flex: 1;
-    max-width: 680px;
+    margin-inline: auto;
+    width: calc(min(680px, 100%));
 }
 
 navbar {
@@ -48,7 +53,7 @@ navbar h1 a {
 
 .ui-icon:hover {
     cursor: pointer;
-    color: #2581d2;
+    color: var(--color-link);
 }
 
 .feed {
@@ -82,7 +87,7 @@ navbar h1 a {
 
 .post__link {
     text-decoration: none;
-    color: #2581d2;
+    color: var(--color-link);
 }
 
 .post__link:visited {
@@ -102,6 +107,8 @@ navbar h1 a {
 }
 
 /* utilities */
+
+.mt-2 { margin-top: 2rem; }
 
 .grid-3 {
     display: grid;
@@ -130,16 +137,16 @@ navbar h1 a {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid  #2581d2;
+    border: 1px solid  var(--color-link);
     background: none;
     padding: 0.5rem;
-    color:  #2581d2 ;
+    color:  var(--color-link) ;
     border-radius: 4px;
 }
 
 .btn-submit:hover {
     cursor: pointer;
-    background-color:  #2581d2;
+    background-color:  var(--color-link);
     color: white;
 }
 
