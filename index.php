@@ -85,7 +85,7 @@ foreach($urls as $url) {
 				<summary class="feed__title"><?= $feed->title ?></summary>
 				<?php foreach($feed->entry as $entry): ?>
 				    <div class="post">
-					<p class="post__title"><a target="_blank" href="<?= $entry->url; ?>" class="post__link"><?= $entry->title; ?></a></p>
+					<p class="post__title"><a target="_blank" href="<?= $entry->url; ?>" class="post__link"><?= htmlspecialchars($entry->title); ?></a></p>
 				    </div>
 				<?php endforeach; ?>
 			    </details>
@@ -99,7 +99,7 @@ foreach($urls as $url) {
 				<summary class="feed__title"><?= $feed->title ?></summary>
 				<?php foreach($feed->item as $item): ?>
 				    <div class="post">
-					<p class="post__title"><a target="_blank" href="<?= $item->link; ?>" class="post__link"><?= $item->title; ?></a></p>
+					<p class="post__title"><a target="_blank" href="<?= $item->link; ?>" class="post__link"><?= htmlspecialchars($item->title); ?></a></p>
 				    </div>
 				<?php endforeach; ?>
 			    </details>
