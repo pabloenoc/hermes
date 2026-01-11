@@ -34,7 +34,11 @@ foreach($urls as $url) {
     </head>
     <body>
 	<navbar>
-	  <h1><a href="/">h<span>r</span>m<span>ss</span></a></h1>
+	    <a href="/" class="flex" style="gap: 0.5rem; align-items: center; text-decoration: none; color: inherit;">
+		<img src="/images/hermes.webp" id="logo">
+		<h1>Hermes</h1>
+	    </a>
+	   
           <!--
                category: System
                tags: [cog, edit, gear, preferences, tools]
