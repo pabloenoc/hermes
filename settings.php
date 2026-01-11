@@ -62,10 +62,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 <!doctype html>
 <html>
     <head>
-	<title>hrmss</title>
+	<title>Hermes - Settings</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
+	<link rel="icon" type="image/png" href="/images/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+	<meta name="apple-mobile-web-app-title" content="Hermes" />
+	<link rel="manifest" href="/site.webmanifest" />
     </head>
     <body>
 	<navbar>
