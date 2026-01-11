@@ -190,6 +190,7 @@ input[type="url"] {
     font-size: 1rem;
     border: 1px solid var(--color-border);
     border-radius: 4px;
+    color: var(--color-text);
 }
 
 input[type="url"]:focus {
