@@ -1,5 +1,23 @@
 :root {
-    --color-link: #2581d2;
+    --color-link: #c34848;
+    --color-link-visited: #6b6b6b;
+    --color-bg: rgb(250, 247, 241);
+    --color-surface: rgb(199, 185, 179);
+    --color-border: #ccc;
+    --color-text: #444;
+    --color-text-input: white;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+	--color-link: #c34848;
+	--color-link-visited: #6b6b6b;
+	--color-bg: black;
+	--color-surface: rgb(199, 185, 179);
+	--color-border: rgb(84, 83, 84);
+	--color-text: #ddd;
+	--color-text-input: #1c1c1c;
+    }
 }
 
 * {
@@ -10,6 +28,8 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: system-ui, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
 }
 
 body {
@@ -26,7 +46,7 @@ body main:not([class]) {
 navbar {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: 1px solid var(--color-border);
     padding: 1rem;
 }
 
@@ -93,11 +113,11 @@ navbar h1 a {
 .post__link:visited {
     display: none;
     visibility: hidden;
-    color: purple;
+    color: var(--color-link-visited);
 }
 
 .post__link:hover {
-    color: red;
+    color: var(--color-text);
 }
 
 
@@ -126,6 +146,7 @@ navbar h1 a {
     background: none;
     border: none;
     color: #c2c2c2;
+    transition: color 0.15s linear;
 }
 
 .btn-delete:hover {
@@ -137,11 +158,12 @@ navbar h1 a {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid  var(--color-link);
+    border: 2px solid  var(--color-link);
     background: none;
     padding: 0.5rem;
     color:  var(--color-link) ;
     border-radius: 4px;
+    transition: background-color 0.15s linear;
 }
 
 .btn-submit:hover {
@@ -156,8 +178,13 @@ navbar h1 a {
 }
 
 input[type="url"] {
+    background-color: var(--color-text-input);
     padding: 0 1rem;
     font-size: 1rem;
-    border: 1px solid gray;
+    border: 1px solid var(--color-border);
     border-radius: 4px;
+}
+
+input[type="url"]:focus {
+    outline-color: var(--color-link);
 }
