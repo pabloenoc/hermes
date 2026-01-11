@@ -42,7 +42,7 @@ foreach($urls as $url) {
 	<navbar>
 	    <a href="/" class="flex" style="gap: 0.5rem; align-items: center; text-decoration: none; color: inherit;">
 		<img src="/images/hermes.webp" id="logo">
-		<h1>Hermes</h1>
+		<h1>Home</h1>
 	    </a>
 	    
             <!--

@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 	<navbar>
 	    <a href="/" class="flex" style="gap: 0.5rem; align-items: center; text-decoration: none; color: inherit;">
 		<img src="/images/hermes.webp" id="logo">
-		<h1>Hermes</h1>
+		<h1>Settings</h1>
 	    </a>
 	    
 	    <a href="/">
