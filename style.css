@@ -13,7 +13,7 @@
 	--color-link: #c34848;
 	--color-link-visited: #6b6b6b;
 	--color-bg: black;
-	--color-surface: rgb(199, 185, 179);
+	--color-surface: #423b38;
 	--color-border: rgb(84, 83, 84);
 	--color-text: #ddd;
 	--color-text-input: #1c1c1c;
@@ -74,13 +74,17 @@ navbar img#logo {
 
 .ui-icon {
     color: gray;
-    height: 24px;
-    width: 24px;
+    height: 32px;
+    width: 32px;
+    padding: 4px;
+    transition: all 0.15s ease-in;
 }
 
 .ui-icon:hover {
     cursor: pointer;
     color: var(--color-link);
+    background-color: var(--color-surface);
+    border-radius: 4px;
 }
 
 .feed {
