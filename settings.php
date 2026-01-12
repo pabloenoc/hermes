@@ -206,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 	    ?>
 
 	    <p style="padding-left: 1rem; color: gray;">
-		<small>Last updated: <?= $dt->format('H:ia') ?></small>
+		<small>Last updated: <?= $dt->format('h:ia') ?></small>
 	    </p>
 	    
 	    <?php foreach ($feeds as $feed): ?>
