@@ -20,7 +20,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     $feeds[] = $row;
 }
 
-// CREATE
+// CREATE FEED
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
 {
@@ -40,20 +40,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
 	try {
 	    $feed = Feed::load($url);
 	    $feed_title = $feed->title;
+	    $feed_format = $feed->item ? 'rss' : 'atom';
 
 	    $stmt = $db->prepare('INSERT INTO feeds (url, title, format) VALUES (:url, :title, :format)');
 	    $stmt->bindValue(':url', $url, SQLITE3_TEXT);
 	    $stmt->bindValue(':title', $feed_title, SQLITE3_TEXT);
-
-	    if ($feed->item) {
-		$stmt->bindValue(':format', 'rss', SQLITE3_TEXT);
-	    } else {
-		$stmt->bindValue(':format', 'atom', SQLITE3_TEXT);
-	    }
-
+	    $stmt->bindValue(':format', $feed_format, SQLITE3_TEXT);
 	    $stmt->execute();
 
-	    header('Location: ' . $_SERVER['REQUEST_URI']);
+	    // Save feed entries to db...
+	    $feed_id = $db->lastInsertRowID();
+
+	    // Atom format first
+	    if ($feed_format === 'atom') {
+		foreach($feed->entry as $entry) {
+		    $title = $entry->title;
+		    $published_date = (int)$entry->timestamp; // TODO: fix if empty
+		    $guid = $entry->id;
+		    $url = $entry->link['href'];
+
+		    $stmt = $db->prepare('INSERT INTO entries (feed_id, title, published_date, guid, url) VALUES (:feed_id, :title, :published_date, :guid, :url)');
+                    $stmt->bindValue(':feed_id', $feed_id, SQLITE3_INTEGER);
+                    $stmt->bindValue(':title', $title, SQLITE3_TEXT);
+                    $stmt->bindValue(':published_date', $published_date, SQLITE3_INTEGER);
+                    $stmt->bindValue(':guid', $guid, SQLITE3_TEXT);
+                    $stmt->bindValue(':url', $url, SQLITE3_TEXT);
+                    $stmt->execute();
+		}
+	    } elseif ($feed_format === 'rss') {
+		foreach($feed->item as $item) {
+		    $title = $item->title;
+                    $published_date = strtotime($item->pubDate);
+                    $guid = $item->guid;
+                    $url = $item->link;
+
+		    $stmt = $db->prepare('INSERT INTO entries (feed_id, title, published_date, guid, url) VALUES (:feed_id, :title, :published_date, :guid, :url)');
+                    $stmt->bindValue(':feed_id', $feed_id, SQLITE3_INTEGER);
+                    $stmt->bindValue(':title', $title, SQLITE3_TEXT);
+                    $stmt->bindValue(':published_date', $published_date, SQLITE3_INTEGER);
+                    $stmt->bindValue(':guid', $guid, SQLITE3_TEXT);
+                    $stmt->bindValue(':url', $url, SQLITE3_TEXT);
+                    $stmt->execute();
+		}
+		
+	    }
+	    
+	    
+
+	    header('Location: ' . $_SERVER['REQUEST_URI']);	    
 	    exit;
 	    
 	} catch (Throwable $e) {
