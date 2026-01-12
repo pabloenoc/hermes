@@ -2,9 +2,6 @@
 
 // TODO: Fetch feed updates
 
-require_once('vendor/Feed.php');
-Feed::$cacheDir = __DIR__ . '/tmp';
-Feed::$cacheExpire = '5 hours';
 
 $db = new SQLITE3('./db/hrmss.sqlite');
 $result = $db->query('
