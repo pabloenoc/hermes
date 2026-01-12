@@ -8,6 +8,7 @@
 require_once('vendor/Feed.php');
 
 $db = new SQLITE3('./db/hrmss.sqlite');
+$db->exec('PRAGMA foreign_keys = ON;');
 
 $result = $db->query('
     SELECT id, title, url
