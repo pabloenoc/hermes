@@ -1,25 +1,31 @@
 <?php
 
+// TODO: Fetch feed updates
+
 require_once('vendor/Feed.php');
 Feed::$cacheDir = __DIR__ . '/tmp';
 Feed::$cacheExpire = '5 hours';
 
 $db = new SQLITE3('./db/hrmss.sqlite');
 $result = $db->query('
-    SELECT url
+    SELECT id, title
     FROM feeds
 ');
 
-$urls = [];
+$feeds = []; 
 while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-    $urls[] = $row['url'];
+    $row['entries'] = []; // prepare slot so I can do e.g. $feed['entries'] to get array of entries
+    $feeds[$row['id']] = $row; // make id=key so I can do $feeds[32] for item with id 32...
 }
 
-$feeds = [];
+// TODO: Grab published_at timestamp to order by date
+$result = $db->query('
+    SELECT feed_id, title, url
+    FROM entries
+');
 
-foreach($urls as $url) {
-    $feed = Feed::load($url);
-    array_push($feeds, $feed);
+while($row = $result->fetchArray(SQLITE3_ASSOC)) {    
+    $feeds[$row['feed_id']]['entries'][] = $row;
 }
 
 ?>
@@ -78,34 +84,16 @@ foreach($urls as $url) {
 	<?php else: ?>
 	    <main class="grid-3">
 		<?php foreach ($feeds as $feed): ?>
-		    <?php if ($feed->entry): ?>
-
 			<div class="feed">
 			    <details open>
-				<summary class="feed__title"><?= $feed->title ?></summary>
-				<?php foreach($feed->entry as $entry): ?>
+				<summary class="feed__title"><?= htmlspecialchars($feed['title']) ?></summary>
+				<?php foreach($feed['entries'] as $entry): ?>
 				    <div class="post">
-					<p class="post__title"><a target="_blank" href="<?= $entry->url; ?>" class="post__link"><?= htmlspecialchars($entry->title); ?></a></p>
+					<p class="post__title"><a target="_blank" href="<?= htmlspecialchars($entry['url']) ?>" class="post__link"><?= htmlspecialchars($entry['title']); ?></a></p>
 				    </div>
 				<?php endforeach; ?>
 			    </details>
 			</div>
-
-		    <?php endif; ?>
-
-		    <?php if ($feed->item): ?>
-			<div class="feed">
-			    <details open>
-				<summary class="feed__title"><?= $feed->title ?></summary>
-				<?php foreach($feed->item as $item): ?>
-				    <div class="post">
-					<p class="post__title"><a target="_blank" href="<?= $item->link; ?>" class="post__link"><?= htmlspecialchars($item->title); ?></a></p>
-				    </div>
-				<?php endforeach; ?>
-			    </details>
-			</div>
-		    <?php endif; ?>
-		    
 		<?php endforeach; ?>
 	    </main>
 	<?php endif; ?>
