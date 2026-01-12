@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
 		    $guid = $entry->id;
 		    $url = $entry->link['href'];
 
-		    $stmt = $db->prepare('INSERT INTO entries (feed_id, title, published_date, guid, url) VALUES (:feed_id, :title, :published_date, :guid, :url)');
+		    $stmt = $db->prepare('INSERT OR IGNORE INTO entries (feed_id, title, published_date, guid, url) VALUES (:feed_id, :title, :published_date, :guid, :url)');
                     $stmt->bindValue(':feed_id', $feed_id, SQLITE3_INTEGER);
                     $stmt->bindValue(':title', $title, SQLITE3_TEXT);
                     $stmt->bindValue(':published_date', $published_date, SQLITE3_INTEGER);
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
                     $guid = $item->guid;
                     $url = $item->link;
 
-		    $stmt = $db->prepare('INSERT INTO entries (feed_id, title, published_date, guid, url) VALUES (:feed_id, :title, :published_date, :guid, :url)');
+		    $stmt = $db->prepare('INSERT OR IGNORE INTO entries (feed_id, title, published_date, guid, url) VALUES (:feed_id, :title, :published_date, :guid, :url)');
                     $stmt->bindValue(':feed_id', $feed_id, SQLITE3_INTEGER);
                     $stmt->bindValue(':title', $title, SQLITE3_TEXT);
                     $stmt->bindValue(':published_date', $published_date, SQLITE3_INTEGER);
