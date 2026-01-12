@@ -99,12 +99,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 		<h1>Settings</h1>
 	    </a>
 	    
-	    <a href="/">
+	    <a href="/" style="color:inherit; text-decoration: none;">
 		<!--
-		     category: Arrows
-		     tags: [pointer, return, revert, reverse, undo, left]
-		     version: "1.3"
-		     unicode: "eb77"
+		     tags: [save, file, disk]
+		     category: Devices
+		     version: "1.2"
+		     unicode: "eb62"
 		-->
 		<svg
 		    class="ui-icon"
@@ -118,8 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 		    stroke-linecap="round"
 		    stroke-linejoin="round"
 		>
-		    <path d="M9 14l-4 -4l4 -4" />
-		    <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
+		    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+		    <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+		    <path d="M14 4l0 4l-6 0l0 -4" />
 		</svg>
 	    </a>
             
