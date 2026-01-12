@@ -18,11 +18,37 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     $feeds[$row['id']] = $row; // make id=key so I can do $feeds[32] for item with id 32...
 }
 
-// TODO: Grab published_at timestamp to order by date
-$result = $db->query('
-    SELECT feed_id, title, url
+// ENTRIES
+$filter = $_GET['filter'] ?? 'today'; // entries sorting filter
+
+$cutoffSQL = null;
+
+switch ($filter) {
+    case 'today':
+	$cutoffSQL = "strftime('%s', 'now', 'start of day')";
+	break;
+    case '1w':
+	$cutoffSQL = "strftime('%s', 'now', '-7 days')";
+	break;
+    case '1m':
+	$cutoffSQL = "strftime('%s', 'now', '-30 days')";
+	break;
+    case 'all':
+    default:
+	$cutoffSQL = null;
+}
+
+$sql = '
+    SELECT feed_id, title, url, published_date
     FROM entries
-');
+';
+
+if ($cutoffSQL) {
+    $sql .= "WHERE published_date >= CAST($cutoffSQL AS INTEGER)";
+}
+
+$sql .= 'ORDER BY published_date DESC';
+$result = $db->query($sql);
 
 while($row = $result->fetchArray(SQLITE3_ASSOC)) {    
     $feeds[$row['feed_id']]['entries'][] = $row;
@@ -43,7 +69,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
 	<meta name="apple-mobile-web-app-title" content="Hermes" />
 	<link rel="manifest" href="/site.webmanifest" />
-    </head>
+            </head>
     <body>
 	<navbar>
 	    <a href="/" class="flex" style="gap: 0.5rem; align-items: center; text-decoration: none; color: inherit;">
@@ -74,7 +100,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 		</svg>
 	    </a>
             
-	</navbar>
+			</navbar>
 	
 	<?php if (count($feeds) === 0): ?>
 	    <main style="text-align: center;">
@@ -82,18 +108,28 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 		<p><a style="color:var(--color-link); text-decoration: none;" href="/settings.php">Add feed</a></p>
 	    </main>
 	<?php else: ?>
+	    <div class="toolbar">
+		<form method="get">
+		    <select name="filter" id="display-filter" onchange="this.form.submit()">
+			<option value="all" <?= $filter === 'all' ? 'selected' : '' ?>>All</option>
+			<option value="today" <?= $filter === 'today' ? 'selected' : '' ?>>Today</option>
+			<option value="1w" <?= $filter === '1w' ? 'selected' : '' ?>>1 Week</option>
+			<option value="1m" <?= $filter === '1m' ? 'selected' : '' ?>>1 Month</option>
+		    </select>
+		</form>
+	    </div>
 	    <main class="grid-3">
 		<?php foreach ($feeds as $feed): ?>
-			<div class="feed">
-			    <details open>
-				<summary class="feed__title"><?= htmlspecialchars($feed['title']) ?></summary>
-				<?php foreach($feed['entries'] as $entry): ?>
-				    <div class="post">
-					<p class="post__title"><a target="_blank" href="<?= htmlspecialchars($entry['url']) ?>" class="post__link"><?= htmlspecialchars($entry['title']); ?></a></p>
-				    </div>
-				<?php endforeach; ?>
-			    </details>
-			</div>
+		    <div class="feed">
+			<details open>
+			    <summary class="feed__title"><?= htmlspecialchars($feed['title']) ?></summary>
+			    <?php foreach($feed['entries'] as $entry): ?>
+				<div class="post">
+				    <p class="post__title"><a target="_blank" href="<?= htmlspecialchars($entry['url']) ?>" class="post__link"><?= htmlspecialchars($entry['title']); ?></a></p>
+				</div>
+			    <?php endforeach; ?>
+			</details>
+		    </div>
 		<?php endforeach; ?>
 	    </main>
 	<?php endif; ?>
