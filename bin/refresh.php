@@ -4,7 +4,7 @@
 
 require_once(__DIR__ . '/../vendor/Feed.php');
 Feed::$cacheDir = __DIR__ . '/../tmp/';
-Feed::$cacheExpire = '6 hours';
+Feed::$cacheExpire = '1 hour';
 
 $db = new SQLITE3(__DIR__ . '/../db/hrmss.sqlite');
 
