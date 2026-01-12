@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
 	    $feed_title = $feed->title;
 	    $feed_format = $feed->item ? 'rss' : 'atom';
 
-	    $stmt = $db->prepare('INSERT INTO feeds (url, title, format) VALUES (:url, :title, :format)');
+	    $stmt = $db->prepare('INSERT OR IGNORE INTO feeds (url, title, format) VALUES (:url, :title, :format)');
 	    $stmt->bindValue(':url', $url, SQLITE3_TEXT);
 	    $stmt->bindValue(':title', $feed_title, SQLITE3_TEXT);
 	    $stmt->bindValue(':format', $feed_format, SQLITE3_TEXT);
