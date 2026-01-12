@@ -1,0 +1,8 @@
+{
+  "cron": [
+    {
+      "command": "php bin/refresh.php",
+      "schedule": "@hourly"
+    }
+  ]
+}
