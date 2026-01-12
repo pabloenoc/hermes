@@ -38,7 +38,7 @@ foreach ($feeds as $feed) {
                 $url = $entry->link['href'];
 
                 $stmt = $db->prepare('
-                    INSERT OR IGNORE INTRO entries
+                    INSERT OR IGNORE INTO entries
                     (feed_id, title, published_date, guid, url)
                     VALUES (:feed_id, :title, :published_date, :guid, :url)
                 ');
