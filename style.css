@@ -202,3 +202,17 @@ input[type="url"] {
 input[type="url"]:focus {
     outline-color: var(--color-link);
 }
+
+.toolbar {
+    display: flex;
+    justify-content: end;
+    padding-inline: 1rem;
+}
+
+select {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border-color: var(--color-border);
+    font-size: 1rem;
+    padding: 0.25rem;
+}
