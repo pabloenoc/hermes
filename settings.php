@@ -40,14 +40,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
 	try {
 	    $feed = Feed::load($url);
 	    $feed_title = $feed->title;
-	    // INSERT INTO [table] (column(s)) VALUES (value(s));
-	    $stmt = $db->prepare('INSERT INTO feeds (url, title) VALUES (:url, :title)');
+
+	    $stmt = $db->prepare('INSERT INTO feeds (url, title, format) VALUES (:url, :title, :format)');
 	    $stmt->bindValue(':url', $url, SQLITE3_TEXT);
 	    $stmt->bindValue(':title', $feed_title, SQLITE3_TEXT);
+
+	    if ($feed->item) {
+		$stmt->bindValue(':format', 'rss', SQLITE3_TEXT);
+	    } else {
+		$stmt->bindValue(':format', 'atom', SQLITE3_TEXT);
+	    }
+
 	    $stmt->execute();
 
-	    // redirect only on success
-	    
 	    header('Location: ' . $_SERVER['REQUEST_URI']);
 	    exit;
 	    
@@ -91,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
 	<meta name="apple-mobile-web-app-title" content="Hermes" />
 	<link rel="manifest" href="/site.webmanifest" />
-        </head>
+            </head>
     <body>
 	<navbar>
 	    <a href="/" class="flex" style="gap: 0.5rem; align-items: center; text-decoration: none; color: inherit;">
@@ -124,12 +129,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 		</svg>
 	    </a>
             
-		</navbar>
+	</navbar>
 	<main>
 	    <h2 style="padding-left: 1rem;">My Feeds</h2>
 
 
-<!-- Display form errors -->
+	    <!-- Display form errors -->
 	    <?php if (!empty($errors)): ?>
 		<div class="" style="color: var(--color-error); padding-left: 1rem;">
 		    <p>This feed could not be added to Hermes.</p>
