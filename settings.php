@@ -11,7 +11,7 @@ $db = new SQLITE3('./db/hrmss.sqlite');
 $db->exec('PRAGMA foreign_keys = ON;');
 
 $result = $db->query('
-    SELECT id, title, url
+    SELECT id, title, url, last_fetched_at
     FROM feeds
 ');
 
@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
 	<meta name="apple-mobile-web-app-title" content="Hermes" />
 	<link rel="manifest" href="/site.webmanifest" />
-            </head>
+                </head>
     <body>
 	<navbar>
 	    <a href="/" class="flex" style="gap: 0.5rem; align-items: center; text-decoration: none; color: inherit;">
@@ -199,6 +199,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 		    </svg>
 		</button>
 	    </form>
+
+	    <?php
+	    $dt = new DateTime($feeds[0]['last_fetched_at'], new DateTimeZone('UTC'));
+	    $dt->setTimezone(new DateTimeZone('America/Los_Angeles'));
+	    ?>
+
+	    <p style="padding-left: 1rem; color: gray;">
+		<small>Last updated: <?= $dt->format('H:ia') ?></small>
+	    </p>
+	    
 	    <?php foreach ($feeds as $feed): ?>
 		<div class="feed flex justify-between">
 		    <div>
@@ -218,6 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 		    </div>
 		</div>
 	    <?php endforeach; ?>
+	    
 	</main>
     </body>
 </html>
