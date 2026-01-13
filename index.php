@@ -66,7 +66,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
 	<meta name="apple-mobile-web-app-title" content="Hermes" />
 	<link rel="manifest" href="/site.webmanifest" />
-            </head>
+    </head>
     <body>
 	<navbar>
 	    <a href="/" class="flex" style="gap: 0.5rem; align-items: center; text-decoration: none; color: inherit;">
@@ -97,7 +97,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 		</svg>
 	    </a>
             
-			</navbar>
+		</navbar>
 	
 	<?php if (count($feeds) === 0): ?>
 	    <main style="text-align: center;">
@@ -106,6 +106,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 	    </main>
 	<?php else: ?>
 	    <div class="toolbar">
+		
 		<form method="get">
 		    <select name="filter" id="display-filter" onchange="this.form.submit()">
 			<option value="all" <?= $filter === 'all' ? 'selected' : '' ?>>All</option>
@@ -114,6 +115,11 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 			<option value="1m" <?= $filter === '1m' ? 'selected' : '' ?>>1 Month</option>
 		    </select>
 		</form>
+		<div>
+		    <button id="toggle-details">
+			Collapse
+		    </button>
+		</div>
 	    </div>
 	    <main class="grid-3">
 		<?php foreach ($feeds as $feed): ?>
@@ -131,6 +137,30 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 	    </main>
 	<?php endif; ?>
 
-	
+	<script>
+	 const btn = document.getElementById('toggle-details');
+	 const details = document.querySelectorAll('details');
+
+	 function updateLabel() {
+	     const allOpen = [...details].every(d => d.open);
+	     btn.textContent = allOpen ? 'Collapse' : 'Expand';
+	 }
+
+	 // ensure correct label on load
+	 updateLabel();
+
+	 btn.addEventListener('click', () => {
+	     const shouldOpen = [...details].some(d => !d.open);
+
+	     details.forEach(d => {
+		 d.open = shouldOpen;
+	     });
+
+	     updateLabel();
+	 });
+	</script>
+
+
+
     </body>
 </html>
