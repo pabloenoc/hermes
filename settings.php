@@ -166,7 +166,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
             
 	</navbar>
 	<main>
-	    <h2 style="padding-left: 1rem;">My Feeds</h2>
+	    <div style="padding: 1rem;">
+		<h2 style="margin-bottom: 0;">My Feeds</h2>
+	    </div>
+	    
 
 
 	    <!-- Display form errors -->
@@ -206,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 	    ?>
 
 	    <p style="padding-left: 1rem; color: gray;">
-		<small>Last updated: <?= $dt->format('h:ia') ?></small>
+		<small><?= count($feeds) ?> feeds ◦ Last updated: <?= $dt->format('h:ia') ?></small>
 	    </p>
 	    
 	    <?php foreach ($feeds as $feed): ?>
