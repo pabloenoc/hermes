@@ -117,7 +117,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 		</form>
 		<div>
 		    <button id="toggle-details">
-			Collapse
+			Collapse All
 		    </button>
 		</div>
 	    </div>
@@ -143,7 +143,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
 	 function updateLabel() {
 	     const allOpen = [...details].every(d => d.open);
-	     btn.textContent = allOpen ? 'Collapse' : 'Expand';
+	     btn.textContent = allOpen ? 'Collapse All' : 'Expand All';
 	 }
 
 	 // ensure correct label on load
