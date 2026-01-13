@@ -149,6 +149,13 @@ navbar img#logo {
     gap: 1rem;
     max-width: 100%;
 }
+
+@media screen and (min-width: 680px) {
+    .grid-3 {
+	padding: 1rem;
+    }
+}
+
 .flex { display: flex; }
 .justify-between {
     justify-content: space-between;
