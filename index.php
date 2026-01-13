@@ -22,7 +22,7 @@ $cutoffSQL = null;
 
 switch ($filter) {
     case 'today':
-	$cutoffSQL = "strftime('%s', 'now', 'start of day')";
+	$cutoffSQL = "strftime('%s', 'now', 'localtime', 'start of day')";
 	break;
     case '1w':
 	$cutoffSQL = "strftime('%s', 'now', '-7 days')";
@@ -41,10 +41,10 @@ $sql = '
 ';
 
 if ($cutoffSQL) {
-    $sql .= "WHERE published_date >= CAST($cutoffSQL AS INTEGER)";
+    $sql .= " WHERE published_date >= CAST($cutoffSQL AS INTEGER)";
 }
 
-$sql .= 'ORDER BY published_date DESC';
+$sql .= ' ORDER BY published_date DESC';
 $result = $db->query($sql);
 
 while($row = $result->fetchArray(SQLITE3_ASSOC)) {    
