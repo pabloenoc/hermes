@@ -1,25 +1,31 @@
-#+TITLE: Hermess
+#+TITLE: Hermes
 #+AUTHOR: Pablo Enoc
 #+DATE: jueves 8 de enero 2026
 
-Hermess es una aplicación para definir fuentes de información y mantenerse al tanto de las mismas.
+Hermes is a web-based news aggregator with support for Atom and RSS formats. It includes features such as date filters and a multi-column layout.
 
-Las fechas en los grupos generan urgencia innecesaria.
-
-Un filtro sería mostrar solamente algunas fechas en los 
-posts... 
-
-Display posts: 
-
-- All
-- Today
-- 1 week old
-- 1 month old
 
 ** Changelog
+
+*** 2026-01-13
+- Add Expand / Collapse button on homepage
+- Toolbar styling
+
+*** 2026-01-12
+- Create standalone script for refreshing feeds
+- Create cron task in Dokku
+
+*** 2026-01-11
+- Validations for feeds
+- UI icon styles
+- Create entries table to allow date filtering
+
+*** 2026-01-10
+- App icon
+- App styling
+- Dokku deployment
 
 *** 2026-01-09
 
 - Use sqlite database
 - Create column view
--
