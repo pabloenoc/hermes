@@ -163,7 +163,7 @@ unicode: "f7b3"
 				<?php else: ?>
 					<?php foreach($feed['entries'] as $entry): ?>
 						<div class="post">
-							<p class="post__date"><?= htmlspecialchars(date("d M · h:i a", $entry['published_date'])) ?></p>
+							<p class="post__date"><?= htmlspecialchars(date("d M · h:ia", $entry['published_date'])) ?></p>
 							<p class="post__title"><a target="_blank" href="<?= htmlspecialchars($entry['url']) ?>" class="post__link"><?= htmlspecialchars($entry['title']); ?></a></p>
 						</div>
 					<?php endforeach; ?>
