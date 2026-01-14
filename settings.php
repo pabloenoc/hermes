@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
             
 	</navbar>
 	<main>
-	    <div style="padding: 1rem;">
+	    <div style="padding-left: 1rem;">
 		<h2 style="margin-bottom: 0;">My Feeds</h2>
 	    </div>
 	    
