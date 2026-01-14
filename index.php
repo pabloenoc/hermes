@@ -2,6 +2,8 @@
 
 // TODO: Fetch feed updates
 
+date_default_timezone_set('America/Los_Angeles');
+
 
 $db = new SQLITE3('./db/hrmss.sqlite');
 $result = $db->query('
