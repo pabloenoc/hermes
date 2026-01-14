@@ -7,6 +7,7 @@
     --color-border: #ccc;
     --color-text: #444;
     --color-text-input: white;
+    --color-shadow: #dcd5d5;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,10 +16,11 @@
 	--color-link: #c34848;
 	--color-link-visited: #6b6b6b;
 	--color-bg: black;
-	--color-surface: #423b38;
+	--color-surface: #252322;
 	--color-border: rgb(84, 83, 84);
 	--color-text: #ddd;
 	--color-text-input: #1c1c1c;
+    --color-shadow: transparent;
     }
 }
 
