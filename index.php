@@ -135,7 +135,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 				<details open>
 					<summary class="feed__title"><?= htmlspecialchars($feed['title']) ?></summary>
 					<?php if ($empty_feed): ?>
-						<div style="color: gray; display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; align-items: center; margin-top: 1rem; padding-block: 1rem; border-radius: 6px; background-color: var(--color-surface);">
+						<div style="color: gray; display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; align-items: center; margin-top: 1rem; padding-block: 1rem; border-radius: 6px; background-color: var(--color-surface); box-shadow: inset 0px 0px 1px 1px var(--color-shadow);">
 				    		<!--
 tags: [emotion, feeling, happy, tick, accept, face]
 category: Mood
