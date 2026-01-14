@@ -75,7 +75,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 			<img src="/images/hermes.webp" id="logo">
 			<h1>Home</h1>
 		</a>
-		
+
             <!--
 		 category: System
 		 tags: [cog, edit, gear, preferences, tools]
@@ -98,7 +98,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 			<path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
 		</svg>
 	</a>
-	
+
 </navbar>
 
 <?php if (count($feeds) === 0): ?>
@@ -133,7 +133,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 				<details open>
 					<summary class="feed__title"><?= htmlspecialchars($feed['title']) ?></summary>
 					<?php if ($empty_feed): ?>
-						<div style="color: gray; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 4rem;">
+						<div style="color: gray; display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; align-items: center; margin-top: 1rem; padding-block: 1rem; border-radius: 6px; background-color: var(--color-surface);">
 				    		<!--
 tags: [emotion, feeling, happy, tick, accept, face]
 category: Mood
@@ -157,7 +157,7 @@ unicode: "f7b3"
 							<path d="M9.5 15c.658 .64 1.56 1 2.5 1s1.842 -.36 2.5 -1" />
 							<path d="M15 19l2 2l4 -4" />
 						</svg>
-						<p>All caught up.</p>
+						<p style="margin: 0;">All caught up.</p>
 					</div>
 
 				<?php else: ?>
@@ -167,7 +167,7 @@ unicode: "f7b3"
 						</div>
 					<?php endforeach; ?>
 				<?php endif ?>
-				
+
 			</details>
 		</div>
 	<?php endforeach; ?>
