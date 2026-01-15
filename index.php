@@ -163,7 +163,7 @@ unicode: "f7b3"
 		</svg>
 		<p style="margin: 0;">It's quiet right now...</p>
 		<p style="margin-top: 0">
-			<?= require "advice.php" ?>
+			<?= include "lib/advice.php" ?>
 		</p>
 	</div>
 <?php else: ?>
