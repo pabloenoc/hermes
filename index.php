@@ -39,7 +39,7 @@ switch ($filter) {
 }
 
 $sql = '
-SELECT feed_id, title, url, published_date
+SELECT feed_id, guid, title, url, published_date
 FROM entries
 ';
 
@@ -160,7 +160,8 @@ unicode: "f7b3"
 			<path d="M9.5 15c.658 .64 1.56 1 2.5 1s1.842 -.36 2.5 -1" />
 			<path d="M15 19l2 2l4 -4" />
 		</svg>
-		<p style="margin: 0;">It's quiet right now.</p>
+		<p style="margin: 0;">It's quiet right now...</p>
+		<p style="margin-top: 0"><a href="/settings.php" style="color: var(--color-link); text-decoration: none;">Try adding a new feed!</p>
 	</div>
 <?php else: ?>
 	<main class="grid-3">
@@ -179,21 +180,30 @@ unicode: "f7b3"
 
 						<?php foreach($feed['entries'] as $entry): ?>
 							<div class="post">
-
 								<?php if ($filter === 'today'): ?>
+									<?php if (str_contains($entry['guid'], "ycombinator") || str_contains($entry['guid'], "lobste.rs")): ?>
+										<p class="post__date"><a class="techie-site-link" href="<?= $entry['guid'] ?>" ><?= htmlspecialchars(date("h:ia", $entry['published_date'])) ?></a></p>
+									<?php else: ?>
 									<p class="post__date"><?= htmlspecialchars(date("h:ia", $entry['published_date'])) ?></p>
-								<?php else: ?>
-									<p class="post__date"><?= htmlspecialchars(date("d M · h:ia", $entry['published_date'])) ?></p>
-								<?php endif; ?>
-								<p class="post__title"><a target="_blank" href="<?= htmlspecialchars($entry['url']) ?>" class="post__link"><?= htmlspecialchars($entry['title']); ?></a></p>
-							</div>
-						<?php endforeach; ?>
-					<?php endif ?>
+									<?php endif; ?>
 
-				</details>
-			</div>
-		<?php endforeach; ?>
-	</main>
+								<?php else: ?>
+									<?php if (str_contains($entry['guid'], "ycombinator") || str_contains($entry['guid'], "lobste.rs")): ?>
+										<p class="post__date"><a class="techie-site-link" href="<?= $entry['guid'] ?>"><?= htmlspecialchars(date("d M · h:ia", $entry['published_date'])) ?></a></p>
+									<?php else: ?>
+										<p class="post__date"><?= htmlspecialchars(date("d M · h:ia", $entry['published_date'])) ?></p>
+									<?php endif ?>
+								
+								<?php endif; ?>
+							<p class="post__title"><a target="_blank" href="<?= htmlspecialchars($entry['url']) ?>" class="post__link"><?= htmlspecialchars($entry['title']); ?></a></p>
+						</div>
+					<?php endforeach; ?>
+				<?php endif ?>
+
+			</details>
+		</div>
+	<?php endforeach; ?>
+</main>
 <?php endif ?>
 
 
