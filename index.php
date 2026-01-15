@@ -116,7 +116,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 	<main style="text-align: center;">
 		<img src="images/welcome.svg" class="welcome-image">
 		<p class="mt-2" style="font-size: 2rem;">Welcome to Hermes!</p>
-		<p><a style="color:var(--color-link); text-decoration: none;" href="/settings.php">Add feed</a></p>
+		<p><a class="add-feed-btn" style="color:var(--color-link); text-decoration: none;" href="/settings.php">Add feed</a></p>
 	</main>
 <?php else: ?>
 	<div class="toolbar">
