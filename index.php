@@ -70,6 +70,13 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
 	<meta name="apple-mobile-web-app-title" content="Hermes" />
 	<link rel="manifest" href="/site.webmanifest" />
+
+	<meta property="og:title" content="Hermes - Read the web">
+	<meta property="og:description" content="Keep an eye on what matters to you.">
+	<meta property="og:image" content="/images/og_image.png">
+	<meta property="og:url" content="https://hrmss.enocc.com">
+	<meta property="og:type" content="website">
+
 </head>
 <body>
 	<navbar>
