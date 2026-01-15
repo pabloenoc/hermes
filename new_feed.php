@@ -1,25 +1,9 @@
 <?php
 
-// CREATE FEED
-
-// $errors = [];
-
-// if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
-// {
-//     $url = trim($_POST['new_feed_url']);
-//     // VALIDATIONS
-//     // 1. URL cannot be blank
-//     // 2. URL must be unique
-//     // 3. URL is a valid URL string
-
-//     // INSERT feed INTO feeds 
-
-//     // INSERT entries INTRO entries
-
-// }
-
+require_once('vendor/Feed.php');
 
 // CREATE FEED
+
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
 {
