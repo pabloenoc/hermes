@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
 		$errors[] = 'URL cannot be blank';
 	} else if(!filter_var($url, FILTER_VALIDATE_URL)) {
 		$errors[] = 'URL is not valid URL.';
-	}
+	} // TODO: Show error if feed already exists (check by URL)
 
 	if (empty($errors))
 	{
