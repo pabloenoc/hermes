@@ -11,7 +11,7 @@ $db = new SQLITE3(__DIR__ . '/../db/hrmss.sqlite');
 $result = $db->query('
     SELECT id, url, format
     FROM feeds
-');
+    ');
 
 $feeds = [];
 while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -41,52 +41,52 @@ foreach ($feeds as $feed) {
                     INSERT OR IGNORE INTO entries
                     (feed_id, title, published_date, guid, url)
                     VALUES (:feed_id, :title, :published_date, :guid, :url)
-                ');
+                    ');
 
                 $stmt->bindValue(':feed_id', $feed_id, SQLITE3_INTEGER);
                 $stmt->bindValue(':title', $title, SQLITE3_TEXT);
                 $stmt->bindValue(':published_date', $published_date, SQLITE3_INTEGER);
-                $stmt->bindValue(':guid', $guid, SQLITE3_TEXT);                                  $stmt->bindValue(':url', $url, SQLITE3_TEXT);
+                $stmt->bindValue(':guid', $guid, SQLITE3_TEXT);                                  
+                $stmt->bindValue(':url', $url, SQLITE3_TEXT);
                 $stmt->execute();
             }
         }
 
-	if ($feed['format'] === 'rss') {
-	    foreach ($parsed_feed->item as $item) {
-		$title = $item->title;
-		$published_date = strtotime($item->pubDate);
-		$guid = $item->guid;
-		$url = $item->link;
+        if ($feed['format'] === 'rss') {
+           foreach ($parsed_feed->item as $item) {
+              $title = $item->title;
+              $published_date = strtotime($item->pubDate);
+              $guid = $item->guid;
+              $url = $item->link;
 
-		$stmt = $db->prepare('INSERT OR IGNORE INTO entries
-                    (feed_id, title, published_date, guid, url)
-                    VALUES (:feed_id, :title, :published_date, :guid, :url)
-		');
-		
-                $stmt->bindValue(':feed_id', $feed_id, SQLITE3_INTEGER);
-                $stmt->bindValue(':title', $title, SQLITE3_TEXT);
-                $stmt->bindValue(':published_date', $published_date, SQLITE3_INTEGER);
-                $stmt->bindValue(':guid', $guid, SQLITE3_TEXT);
-                $stmt->bindValue(':url', $url, SQLITE3_TEXT);
-                $stmt->execute();
-	    }
-	}
+              $stmt = $db->prepare('INSERT OR IGNORE INTO entries
+                (feed_id, title, published_date, guid, url)
+                VALUES (:feed_id, :title, :published_date, :guid, :url)
+                ');
 
-	// Update last_fetched_at timestamp in feeds table
-	$stmt = $db->prepare('
-	    UPDATE feeds
-	    SET last_fetched_at = CURRENT_TIMESTAMP
-	    WHERE id = :id
-	');
+              $stmt->bindValue(':feed_id', $feed_id, SQLITE3_INTEGER);
+              $stmt->bindValue(':title', $title, SQLITE3_TEXT);
+              $stmt->bindValue(':published_date', $published_date, SQLITE3_INTEGER);
+              $stmt->bindValue(':guid', $guid, SQLITE3_TEXT);
+              $stmt->bindValue(':url', $url, SQLITE3_TEXT);
+              $stmt->execute();
+          }
+        }
 
-	$stmt->bindValue(':id', $feed_id, SQLITE3_INTEGER);
-	$stmt->execute();
-	
-	
-    } catch (Throwable $t) {
-	fwrite(STDERR, "Failed: {$feed['url']}\n");
-    }
-    
+    	// Update last_fetched_at timestamp in feeds table
+      $stmt = $db->prepare('
+       UPDATE feeds
+           SET last_fetched_at = CURRENT_TIMESTAMP
+           WHERE id = :id
+           ');
+
+      $stmt->bindValue(':id', $feed_id, SQLITE3_INTEGER);
+      $stmt->execute();
+
+  } catch (Throwable $t) {
+    fwrite(STDERR, "Failed: {$feed['url']}\n");
+}
+
 }
 
 echo "\nFinished.\n";
