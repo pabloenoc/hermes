@@ -179,16 +179,16 @@ navbar img#logo {
     justify-content: center;
     align-items: center;
     border: 2px solid  var(--color-link);
-    background: none;
+    background-color:  var(--color-link);
     padding: 0.5rem;
-    color:  var(--color-link) ;
+    color:  var(--color-bg) ;
     border-radius: 4px;
     transition: background-color 0.15s linear;
 }
 
 .btn-submit:hover {
     cursor: pointer;
-    background-color:  var(--color-link);
+    filter: brightness(1.125);
     color: white;
 }
 
