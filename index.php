@@ -131,39 +131,14 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 			$empty_feed = count($feed['entries']) === 0 ? true : false;
 			?>
 
-			<div class="feed" >
-				<details open>
-					<summary class="feed__title"><?= htmlspecialchars($feed['title']) ?></summary>
-					<div class="expandable">
-						<?php if ($empty_feed): ?>
-							<div style="color: gray; display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; align-items: center; margin-top: 1rem; padding-block: 1rem; border-radius: 6px; background-color: var(--color-surface); box-shadow: inset 0px 0px 1px 1px var(--color-shadow);">
-				    		<!--
-tags: [emotion, feeling, happy, tick, accept, face]
-category: Mood
-version: "2.7"
-unicode: "f7b3"
-								-->
-								<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="32"
-								height="32"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="1"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								>
-								<path d="M20.925 13.163a8.998 8.998 0 0 0 -8.925 -10.163a9 9 0 0 0 0 18" />
-								<path d="M9 10h.01" />
-								<path d="M15 10h.01" />
-								<path d="M9.5 15c.658 .64 1.56 1 2.5 1s1.842 -.36 2.5 -1" />
-								<path d="M15 19l2 2l4 -4" />
-							</svg>
-							<p style="margin: 0;">All caught up.</p>
-						</div>
+			<?php if ($empty_feed): ?>
+				<?php continue ?>
+			<?php else: ?>
 
-					<?php else: ?>
+				<div class="feed" >
+					<details open>
+						<summary class="feed__title"><?= htmlspecialchars($feed['title']) ?></summary>
+
 						<?php foreach($feed['entries'] as $entry): ?>
 							<div class="post">
 
@@ -176,11 +151,11 @@ unicode: "f7b3"
 							</div>
 						<?php endforeach; ?>
 					<?php endif ?>
-				</div>
-			</details>
-		</div>
-	<?php endforeach; ?>
-</main>
+
+				</details>
+			</div>
+		<?php endforeach; ?>
+	</main>
 <?php endif; ?>
 
 <script>
