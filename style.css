@@ -263,3 +263,11 @@ select:hover {
     color: var(--color-text);
     text-decoration: underline;
 }
+
+.welcome-image {
+    display: block;
+    max-height: 320px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    max-width: 100%;
+}

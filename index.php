@@ -114,7 +114,8 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
 <?php if (count($feeds) === 0): ?>
 	<main style="text-align: center;">
-		<p class="mt-2">You have no feeds yet! </p>
+		<img src="images/welcome.svg" class="welcome-image">
+		<p class="mt-2" style="font-size: 2rem;">Welcome to Hermes!</p>
 		<p><a style="color:var(--color-link); text-decoration: none;" href="/settings.php">Add feed</a></p>
 	</main>
 <?php else: ?>
