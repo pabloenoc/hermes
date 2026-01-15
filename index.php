@@ -161,7 +161,9 @@ unicode: "f7b3"
 			<path d="M15 19l2 2l4 -4" />
 		</svg>
 		<p style="margin: 0;">It's quiet right now...</p>
-		<p style="margin-top: 0"><a href="/settings.php" style="color: var(--color-link); text-decoration: none;">Try adding a new feed!</p>
+		<p style="margin-top: 0">
+			<?= require "advice.php" ?>
+		</p>
 	</div>
 <?php else: ?>
 	<main class="grid-3">
