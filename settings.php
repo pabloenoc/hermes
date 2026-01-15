@@ -218,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 
 	<?php if (isset($feeds[0])): ?>
 	<p style="padding-left: 1rem; color: gray;">
-		<small><?= count($feeds) ?> feeds ◦ Last updated: <?= $dt->format('h:ia') ?></small>
+		<small><?= count($feeds) ?> <?= count($feeds) > 1 ? "feeds" : "feed" ?> ◦ Updated <?= $dt->format('h:ia') ?></small>
 	</p>
 	<?php else: ?>
 		<p style="padding-left: 1rem; color: gray;">
