@@ -210,13 +210,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
 	</form>
 
 	<?php
-	$dt = new DateTime($feeds[0]['last_fetched_at'], new DateTimeZone('UTC'));
-	$dt->setTimezone(new DateTimeZone('America/Los_Angeles'));
+	if (isset($feeds[0])) {
+		$dt = new DateTime($feeds[0]['last_fetched_at'], new DateTimeZone('UTC'));
+		$dt->setTimezone(new DateTimeZone('America/Los_Angeles'));
+	}
 	?>
 
+	<?php if (isset($feeds[0])): ?>
 	<p style="padding-left: 1rem; color: gray;">
 		<small><?= count($feeds) ?> feeds ◦ Last updated: <?= $dt->format('h:ia') ?></small>
 	</p>
+	<?php else: ?>
+		<p style="padding-left: 1rem; color: gray;">
+		<small>Tip: You can check out <a target="_blank" href="https://powrss.com" style="color: var(--color-link)">powRSS</a> to discover sites from around the web.</small>
+		</p>
+	<?php endif ?>
 
 	<?php foreach ($feeds as $feed): ?>
 		<div class="feed flex justify-between">
