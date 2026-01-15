@@ -253,21 +253,4 @@ select:hover {
     background-color: var(--color-surface);
 }
 
-details .expandable {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 100ms linear;
-}
-
-details[open] .expandable {
-  grid-template-rows: 1fr;
-}
-
-details .expandable > * {
-  overflow: hidden;
-}
-
-
-
-
 
