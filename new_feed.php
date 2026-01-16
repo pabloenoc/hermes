@@ -4,18 +4,26 @@ require_once('vendor/Feed.php');
 
 // CREATE FEED
 
-$errors = [];
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
-{
+function validate_feed_url(String $url): Array {
+    // TODO: Check duplicate entry
 
-
-    $url = trim($_POST['new_feed_url']);
+    $errors = [];
 
     if ($url === '') {
         $errors[] = 'URL cannot be blank';
     } else if(!filter_var($url, FILTER_VALIDATE_URL)) {
         $errors[] = 'URL is not valid URL.';
-    } // TODO: Show error if feed already exists (check by URL)
+    } 
+
+    return $errors;
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
+{
+    $url = trim($_POST['new_feed_url']);
+
+    $errors = validate_feed_url($url);
 
     if (empty($errors))
     {
@@ -87,32 +95,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
 ?>
 
 <!-- Display form errors -->
-    <?php if (!empty($errors)): ?>
-        <div class="" style="color: var(--color-error); padding-left: 1rem;">
-            <p>This feed could not be added to your library.</p>
-            <ul>
-                <?php foreach ($errors as $error): ?>
-                    <li>
-                        <?= $error ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
+<?php if (!empty($errors)): ?>
+    <div class="" style="color: var(--color-error); padding-left: 1rem;">
+        <p>This feed could not be added to your library.</p>
+        <ul>
+            <?php foreach ($errors as $error): ?>
+                <li>
+                    <?= $error ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
 
-    <form method="post" class="flex" style="padding: 1rem; gap: 0.5rem;">
-        <input
-        type="url"
-        name="new_feed_url"
-        placeholder="https://example.com/feed.xml"
-        style="flex: 1;"
-        required
-        aria-invalid="<?= empty($errors) ? 'false' : 'true' ?>"
-        value="<?= empty($errors)? '' : $_POST['new_feed_url'] ?>"
-        >
-        <button type="submit" class="btn-submit">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-            </svg>
-        </button>
-    </form>
+<form method="post" class="flex" style="padding: 1rem; gap: 0.5rem;">
+    <input
+    type="url"
+    name="new_feed_url"
+    placeholder="https://example.com/feed.xml"
+    style="flex: 1;"
+    required
+    aria-invalid="<?= empty($errors) ? 'false' : 'true' ?>"
+    value="<?= empty($errors)? '' : $_POST['new_feed_url'] ?>"
+    >
+    <button type="submit" class="btn-submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+        </svg>
+    </button>
+</form>
