@@ -11,7 +11,7 @@ Hermes is a web-based news aggregator with support for Atom and RSS formats. It 
 - Refactoring for adding new feeds
 - Add "mark as read" button to entries in the "today" filter
 - Show "Collapse All" option in toolbar only when there are feers shown
-- Add "Random" article feature when filter is NOT set to today
+- Add "Random" article feature 
 
 *** 2026-01-15
 - Begin refactoring of settings.php into distinct files for Feed CRUD operations
