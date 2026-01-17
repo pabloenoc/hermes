@@ -87,13 +87,8 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 			<h1>Home</h1>
 		</a>
 
-            <!--
-		 category: System
-		 tags: [cog, edit, gear, preferences, tools]
-		 version: "1.0"
-		 unicode: "eb20"
-		-->
 		<a href="/settings.php">
+			<!--Gear icon-->
 			<svg class="ui-icon"
 			xmlns="http://www.w3.org/2000/svg"
 			width="32"
@@ -111,7 +106,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 		</a>
 	</navbar>
 
-<?php if (count($feeds) === 0): ?>
+<?php if (empty($feeds)): ?>
 	<main style="text-align: center;">
 		<img src="images/welcome.svg" class="welcome-image">
 		<p class="mt-2" style="font-size: 2rem;">Welcome to Hermes!</p>
@@ -146,12 +141,8 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
 	<?php if (!$home_has_entries): ?>
 		<div style="color: gray; display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; align-items: center; margin-top: 1rem; padding-block: 1rem;">
-                            <!--
-tags: [emotion, feeling, happy, tick, accept, face]
-category: Mood
-version: "2.7"
-unicode: "f7b3"
-			-->
+			
+			<!--emoticon-->
 			<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="64"
@@ -168,20 +159,17 @@ unicode: "f7b3"
 			<path d="M15 10h.01" />
 			<path d="M9.5 15c.658 .64 1.56 1 2.5 1s1.842 -.36 2.5 -1" />
 			<path d="M15 19l2 2l4 -4" />
-		</svg>
-		<p style="margin: 0;">It's quiet right now...</p>
-		<p style="margin-top: 0">
-			<?= include "lib/advice.php" ?>
-		</p>
+			</svg>
+			<p style="margin: 0;">It's quiet right now...</p>
+			<p style="margin-top: 0">
+				<?= include "lib/advice.php" ?>
+			</p>
 	</div>
 <?php else: ?>
 	<main class="grid-3">
 		<?php foreach ($feeds as $feed): ?>
-			<?php 
-			$empty_feed = count($feed['entries']) === 0 ? true : false;
-			?>
 
-			<?php if ($empty_feed): ?>
+			<?php if (empty($feed['entries'])): ?>
 				<?php continue ?>
 			<?php else: ?>
 
