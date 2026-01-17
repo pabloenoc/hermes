@@ -200,7 +200,9 @@ unicode: "f7b3"
 								
 								<?php endif; ?>
 							<p class="post__title"><a target="_blank" href="<?= htmlspecialchars($entry['url']) ?>" class="post__link"><?= htmlspecialchars($entry['title']); ?></a></p>
-							<?php include "mark_entry_as_read.php" ?>
+							<?php if ($filter === 'today'): ?>
+								<?php include "mark_entry_as_read.php" ?>
+							<?php endif ?>
 						</div>
 					<?php endforeach; ?>
 				<?php endif ?>
