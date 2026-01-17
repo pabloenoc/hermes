@@ -48,13 +48,12 @@ $sql .= ' ORDER BY published_date DESC';
 $result = $db->query($sql);
 
 while($row = $result->fetchArray(SQLITE3_ASSOC)) {   
-	$feed_has_entries = true;
-
 	// skip read articles in today filter
 	if ($filter === 'today' && $row['is_read'] === 1) {
 		continue;
 	} else {
 		$feeds[$row['feed_id']]['entries'][] = $row;
+		$feed_has_entries = true;
 	}
 }
 
