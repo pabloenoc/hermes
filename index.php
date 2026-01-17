@@ -135,13 +135,13 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 				Collapse All
 			</button>
 		</div>
+		<?php endif ?>
 
 		<div>
 			<button id="random-entry">
 			    <a target="_blank" href="/random_entry.php">Random</a>
 			</button>
 		</div>
-		<?php endif ?>
 	</div>
 
 	<?php if (!$home_has_entries): ?>
