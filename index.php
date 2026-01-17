@@ -15,7 +15,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 }
 
 // ENTRIES
-$has_entries = false; // Assume no entries for the day
+$feed_has_entries = false; // Assume no entries for the day
 $filter = $_GET['filter'] ?? 'today'; // entries sorting filter
 
 $cutoffSQL = null;
@@ -36,7 +36,7 @@ switch ($filter) {
 }
 
 $sql = '
-SELECT feed_id, guid, title, url, published_date
+SELECT feed_id, guid, title, url, published_date, is_read
 FROM entries
 ';
 
@@ -47,9 +47,15 @@ if ($cutoffSQL) {
 $sql .= ' ORDER BY published_date DESC';
 $result = $db->query($sql);
 
-while($row = $result->fetchArray(SQLITE3_ASSOC)) {    
-	$has_entries = true;
-	$feeds[$row['feed_id']]['entries'][] = $row;
+while($row = $result->fetchArray(SQLITE3_ASSOC)) {   
+	$feed_has_entries = true;
+
+	// skip read articles in today filter
+	if ($filter === 'today' && $row['is_read'] === 1) {
+		continue;
+	} else {
+		$feeds[$row['feed_id']]['entries'][] = $row;
+	}
 }
 
 
@@ -132,7 +138,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 		</div>
 	</div>
 
-	<?php if (!$has_entries): ?>
+	<?php if (!$feed_has_entries): ?>
 		<div style="color: gray; display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; align-items: center; margin-top: 1rem; padding-block: 1rem;">
                             <!--
 tags: [emotion, feeling, happy, tick, accept, face]
@@ -195,6 +201,7 @@ unicode: "f7b3"
 								
 								<?php endif; ?>
 							<p class="post__title"><a target="_blank" href="<?= htmlspecialchars($entry['url']) ?>" class="post__link"><?= htmlspecialchars($entry['title']); ?></a></p>
+							<?php include "mark_entry_as_read.php" ?>
 						</div>
 					<?php endforeach; ?>
 				<?php endif ?>
