@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
     </div>
 <?php endif; ?>
 
-<form method="post" class="flex" style="padding: 1rem; gap: 0.5rem;">
+<form method="post" class="flex" style="padding: 1rem; gap: 0.5rem; margin-block: 1rem;">
     <input
     type="url"
     name="new_feed_url"
