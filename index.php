@@ -57,8 +57,6 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 	}
 }
 
-
-
 ?>
 
 <!doctype html>
@@ -135,6 +133,14 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 		<div>
 			<button id="toggle-details">
 				Collapse All
+			</button>
+		</div>
+
+		<div>
+			<button id="random-entry">
+				<?php $random_entry = $db->query('SELECT * FROM entries ORDER BY RANDOM() LIMIT 1;') ?>
+				<?php $random_entry = $random_entry->fetchArray(SQLITE3_ASSOC); ?>
+				<a target="_blank" href="<?= $random_entry['url'] ?>">Random</a>
 			</button>
 		</div>
 		<?php endif ?>
