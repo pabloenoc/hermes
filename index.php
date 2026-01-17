@@ -15,7 +15,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 }
 
 // ENTRIES
-$feed_has_entries = false; // Assume no entries for the day
+$home_has_entries = false; // Assume no entries for the day
 $filter = $_GET['filter'] ?? 'today'; // entries sorting filter
 
 $cutoffSQL = null;
@@ -53,7 +53,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 		continue;
 	} else {
 		$feeds[$row['feed_id']]['entries'][] = $row;
-		$feed_has_entries = true;
+		$home_has_entries = true;
 	}
 }
 
@@ -130,14 +130,17 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 				<option value="1m" <?= $filter === '1m' ? 'selected' : '' ?>>1 Month</option>
 			</select>
 		</form>
+
+		<?php if ($home_has_entries): ?>
 		<div>
 			<button id="toggle-details">
 				Collapse All
 			</button>
 		</div>
+		<?php endif ?>
 	</div>
 
-	<?php if (!$feed_has_entries): ?>
+	<?php if (!$home_has_entries): ?>
 		<div style="color: gray; display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; align-items: center; margin-top: 1rem; padding-block: 1rem;">
                             <!--
 tags: [emotion, feeling, happy, tick, accept, face]
