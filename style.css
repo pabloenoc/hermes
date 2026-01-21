@@ -97,6 +97,7 @@ navbar img#logo {
 .feed__title {
     margin: 0;
     font-size: 1.15rem;
+    font-weight: bold;
 }
 
 .feed_url {
