@@ -4,7 +4,7 @@
 session_start();
 $db = new SQLITE3('./db/hrmss.sqlite');
 
-if (session_status() === PHP_SESSION_ACTIVE) {
+if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['hermes_user_id'])) {
     header('Location: index.php');
     die;
 }
