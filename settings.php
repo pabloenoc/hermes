@@ -4,26 +4,34 @@
 // Displays all feeds
 // Allow users to add new feeds
 // Allow users to delete existing feeds
+session_start();
+$user_logged_in = false;
+
+// Grant privileges to authenticated user
+if (isset($_SESSION['hermes_user_id'])) {
+    $user_logged_in = true;
+}
 
 $db = new SQLITE3('./db/hrmss.sqlite');
 $db->exec('PRAGMA foreign_keys = ON;');
 
+
 $result = $db->query('
-	SELECT id, title, url, last_fetched_at
-	FROM feeds
-	');
+    SELECT id, title, url, last_fetched_at
+    FROM feeds
+');
 
 $feeds = [];
 
 while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-	$feeds[] = $row;
+    $feeds[] = $row;
 }
 
 ?>
 
 <!doctype html>
 <html>
-<head>
+    <head>
 	<title>Hermes - Settings</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,76 +48,81 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 	<meta property="og:image" content="/images/og_image.png">
 	<meta property="og:url" content="https://hrmss.enocc.com">
 	<meta property="og:type" content="website">
-</head>
-<body>
+    </head>
+    <body>
 	<navbar>
-		<a href="/" class="flex" style="gap: 0.5rem; align-items: center; text-decoration: none; color: inherit;">
-			<img src="/images/hermes.webp" id="logo">
-			<h1>Settings</h1>
-		</a>
+	    <a href="/" class="flex" style="gap: 0.5rem; align-items: center; text-decoration: none; color: inherit;">
+		<img src="/images/hermes.webp" id="logo">
+		<h1>Settings</h1>
+	    </a>
 
-		<a href="/" style="color:inherit; text-decoration: none;">
+	    <a href="/" style="color:inherit; text-decoration: none;">
 		<!--
 		     tags: [save, file, disk]
 		     category: Devices
 		     version: "1.2"
 		     unicode: "eb62"
-			-->
-			<svg
-			class="ui-icon"
-			xmlns="http://www.w3.org/2000/svg"
-			width="32"
-			height="32"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			>
-			<path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
-			<path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-			<path d="M14 4l0 4l-6 0l0 -4" />
+		-->
+		<svg
+		    class="ui-icon"
+		    xmlns="http://www.w3.org/2000/svg"
+		    width="32"
+		    height="32"
+		    viewBox="0 0 24 24"
+		    fill="none"
+		    stroke="currentColor"
+		    stroke-width="2"
+		    stroke-linecap="round"
+		    stroke-linejoin="round"
+		>
+		    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+		    <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+		    <path d="M14 4l0 4l-6 0l0 -4" />
 		</svg>
-	</a>
+	    </a>
 
 	</navbar>
-<main>
-	<div style="padding-left: 1rem;">
+	<main>
+	    <div style="padding-left: 1rem;">
 		<h2 style="margin-bottom: 0;">My Feeds</h2>
-	</div>
+	    </div>
 
-	<?php include "new_feed.php"; ?>
+	    <?php if ($user_logged_in): ?>
+		<?php include "new_feed.php"; ?>
+	    <?php endif ?>
+	    
 
-	<?php
-	if (isset($feeds[0])) {
+	    <?php
+	    if (isset($feeds[0])) {
 		$dt = new DateTime($feeds[0]['last_fetched_at'], new DateTimeZone('UTC'));
 		$dt->setTimezone(new DateTimeZone('America/Los_Angeles'));
-	}
-	?>
+	    }
+	    ?>
 
-	<?php if (isset($feeds[0])): ?>
+	    <?php if (isset($feeds[0])): ?>
 		<p style="padding-left: 1rem; color: gray;">
-			<small><?= count($feeds) ?> <?= count($feeds) > 1 ? "feeds" : "feed" ?> ◦ Updated <?= $dt->format('h:ia') ?></small>
+		    <small><?= count($feeds) ?> <?= count($feeds) > 1 ? "feeds" : "feed" ?> ◦ Updated <?= $dt->format('h:ia') ?></small>
 		</p>
-	<?php else: ?>
+	    <?php else: ?>
 		<p style="padding-left: 1rem; color: gray;">
-			<small>Tip: You can use <a target="_blank" href="https://powrss.com" style="color: var(--color-link)">powRSS</a> to discover sites from around the web.</small>
+		    <small>Tip: You can use <a target="_blank" href="https://powrss.com" style="color: var(--color-link)">powRSS</a> to discover sites from around the web.</small>
 		</p>
-	<?php endif ?>
+	    <?php endif ?>
 
-	<?php foreach ($feeds as $feed): ?>
+	    <?php foreach ($feeds as $feed): ?>
 		<div class="feed flex justify-between">
+		    <div>
+			<p class="feed__title"><?= $feed['title'] ?></p>
+			<p class="feed_url"><?= $feed['url'] ?></p>
+		    </div>
+		    <?php if ($user_logged_in): ?>
 			<div>
-				<p class="feed__title"><?= $feed['title'] ?></p>
-				<p class="feed_url"><?= $feed['url'] ?></p>
+			    <?php include "delete_feed.php" ?>
 			</div>
-			<div>
-				<?php include "delete_feed.php" ?>
-			</div>
+		    <?php endif ?>
 		</div>
-	<?php endforeach; ?>
+	    <?php endforeach; ?>
 
-</main>
-</body>
+	</main>
+    </body>
 </html>
