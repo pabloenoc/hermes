@@ -5,8 +5,8 @@ session_start();
 $db = new SQLITE3('./db/hrmss.sqlite');
 
 if (session_status() === PHP_SESSION_ACTIVE) {
-    print_r($_SESSION);
-    exit;
+    header('Location: index.php');
+    die;
 }
 
 function validate_user_email($db, $email) {
