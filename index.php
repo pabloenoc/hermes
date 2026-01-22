@@ -1,5 +1,13 @@
 <?php
 
+
+session_start();
+
+if (session_status() === PHP_SESSION_ACTIVE && !isset($_SESSION['hermes_user_id'])) {
+    header('Location: login.php');
+    die;
+}
+
 date_default_timezone_set('America/Los_Angeles');
 
 $db = new SQLITE3('./db/hrmss.sqlite');
