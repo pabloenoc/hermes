@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
 
 <!-- Display form errors -->
 <?php if (!empty($errors)): ?>
-    <div class="" style="color: var(--color-error); padding-left: 1rem;">
+    <div class="" style="color: var(--color-error);">
         <p>This feed could not be added to your library.</p>
         <ul>
             <?php foreach ($errors as $error): ?>
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
     </div>
 <?php endif; ?>
 
-<form method="post" class="flex" style="padding: 1rem; gap: 0.5rem; margin-block: 1rem;">
+<form method="post" class="flex" style="padding: 1rem 0; gap: 0.5rem; margin-block: 1rem;">
     <input
     type="url"
     name="new_feed_url"
