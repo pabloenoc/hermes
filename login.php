@@ -9,10 +9,6 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     exit;
 }
 
-
-
-
-
 function validate_user_email($db, $email) {
     $errors = [];
     $stmt = $db->prepare('SELECT * FROM users WHERE email = :email');
