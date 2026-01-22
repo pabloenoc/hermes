@@ -171,7 +171,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 			</svg>
 			<p style="margin: 0;">It's quiet right now...</p>
 			<p style="margin-top: 0">
-				<?= include "lib/advice.php" ?>
+				<?= require __DIR__."/../lib/advice.php" ?>
 			</p>
 	</div>
 <?php else: ?>
