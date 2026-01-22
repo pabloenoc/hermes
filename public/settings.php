@@ -4,21 +4,18 @@
 // Displays all feeds
 // Allow users to add new feeds
 // Allow users to delete existing feeds
+require_once(__DIR__.'/../app/includes/database.php');
+
 session_start();
 $user_logged_in = false;
 
 // Grant privileges to authenticated user
 if (isset($_SESSION['hermes_user_id'])) {
 	$user_logged_in = true;
-}
-
-if ($user_logged_in === false) {
+} else {
 	header('Location: login.php');
 	die;
 }
-
-$db = new SQLITE3('./db/hrmss.sqlite');
-$db->exec('PRAGMA foreign_keys = ON;');
 
 
 $result = $db->query('

@@ -2,7 +2,7 @@
 
 // Check if user is logged in already
 session_start();
-$db = new SQLITE3('./db/hrmss.sqlite');
+require_once(__DIR__.'/../app/includes/database.php');
 
 if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['hermes_user_id'])) {
     header('Location: index.php');

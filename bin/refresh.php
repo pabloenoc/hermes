@@ -2,11 +2,11 @@
 
 <?php
 
-require_once(__DIR__ . '/../vendor/Feed.php');
+require_once(__DIR__. '/../app/includes/database.php');
+require_once(__DIR__ . '/../lib/Feed.php');
+
 Feed::$cacheDir = __DIR__ . '/../tmp/';
 Feed::$cacheExpire = '1 hour';
-
-$db = new SQLITE3(__DIR__ . '/../db/hrmss.sqlite');
 
 $result = $db->query('
     SELECT id, url, format
