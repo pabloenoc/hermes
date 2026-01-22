@@ -10,7 +10,7 @@ if (!isset($_SESSION['hermes_user_id'])) {
 
 date_default_timezone_set('America/Los_Angeles');
 
-include_once(__DIR__.'/../app/includes/database.php');
+require(__DIR__.'/../app/includes/database.php');
 
 $result = $db->query('
 	SELECT id, title
