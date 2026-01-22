@@ -75,6 +75,10 @@ navbar img#logo {
     border-radius: 4px;
 }
 
+main {
+    padding: 1rem;
+}
+
 .ui-icon {
     color: gray;
     height: 32px;
@@ -198,7 +202,7 @@ navbar img#logo {
     width: 24px;
 }
 
-input[type="url"] {
+input[type="url"], input[type="email"], input[type="password"] {
     background-color: var(--color-text-input);
     padding: 0 1rem;
     font-size: 1rem;
@@ -207,7 +211,7 @@ input[type="url"] {
     color: var(--color-text);
 }
 
-input[type="url"]:focus {
+input[type="url"]:focus, input[type="email"]:focus, input[type="password"]:focus {
     outline-color: var(--color-link);
 }
 
@@ -300,4 +304,25 @@ select:hover {
 .btn-text:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+/* Sign up / login form */
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.form__field label {
+    margin-bottom: 0.5rem;
+}
+
+.form__field input[type="email"], .form__field input[type="password"] {
+    padding-block: 0.75rem;
+}
+
+.form__field input[type="submit"] {
+    padding-block: 0.75rem;
+    font-size: 1rem;
 }
