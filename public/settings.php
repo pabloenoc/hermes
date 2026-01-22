@@ -107,7 +107,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 		</p>
 	<?php endif ?>
 
-	<?php require __DIR__ . "/../app/feeds/new_feed.php"; ?>
+	<?php require __DIR__ . "/../app/partials/feeds/new.php"; ?>
 
 	<?php foreach ($feeds as $feed): ?>
 		<div class="feed flex justify-between">
@@ -116,7 +116,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 				<p class="feed_url"><?= $feed['url'] ?></p>
 			</div>
 			<div>
-				<?php include "delete_feed.php" ?>
+				<?php require __DIR__ . "/../app/partials/feeds/delete.php" ?>
 			</div>
 
 		</div>

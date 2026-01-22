@@ -28,19 +28,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
     $errors = validate_user_email($db, $_POST['email']);
 
     if (empty($errors)) {	
-	$stmt = $db->prepare('SELECT * FROM users WHERE email = :email');
-	$stmt->bindValue(':email', $_POST['email']);
-	$user = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+		$stmt = $db->prepare('SELECT * FROM users WHERE email = :email');
+		$stmt->bindValue(':email', $_POST['email']);
+		$user = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
 
-	if (password_verify($_POST['password'], $user['password_hash'])) {
-	    $_SESSION['hermes_user_id'] = $user['id'];
-	    header('Location: ' . $_SERVER['REQUEST_URI']);
-	    exit;
-	} else {
-	    $errors[] = 'Email or password invalid.';
-	}
+		if (password_verify($_POST['password'], $user['password_hash'])) {
+		    $_SESSION['hermes_user_id'] = $user['id'];
+		    header('Location: ' . $_SERVER['REQUEST_URI']);
+		    exit;
+		} else {
+		    $errors[] = 'Email or password invalid.';
+		}
     }
-    
 }
 
 ?>
