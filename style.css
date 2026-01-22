@@ -95,7 +95,7 @@ main {
 }
 
 .feed {
-    padding: 1rem;
+    margin-block: 1rem;
 }
 
 .feed__title {
