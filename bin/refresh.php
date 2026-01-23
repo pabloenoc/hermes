@@ -55,13 +55,18 @@ foreach ($feeds as $feed) {
     if ($feed['format'] === 'atom') {
         foreach($parsed_feed->entry as $entry) {
             $title = $entry->title;
-            $published_date = (int)$entry->timestamp;
+            $published_date = strtotime($entry->published);
             $guid = $entry->id;
             $url = $entry->link['href'];
 
             save_feed_entry($db, $feed_id, $title, $published_date, $guid, $url);
         }
     }
+
+    // Update last_fetched_at in feeds table
+    $stmt = $db->prepare('UPDATE feeds SET last_fetched_at = CURRENT_TIMESTAMP WHERE id = :id');
+    $stmt->bindValue(':id', $feed_id, SQLITE3_INTEGER);
+    $stmt->execute();
 }
 
 echo "\nFinished.\n";
