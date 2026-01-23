@@ -105,7 +105,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 		</div>
 	<?php endforeach; ?>
 
-	<h2 style="margin-block: 2rem 0;">Account Options</h2>
+	<h2 style="margin-block: 4rem">Account Options</h2>
 	<form method='post' action='/logout.php' style="margin-top: 2rem;">
 		<button type='submit' class='btn-submit'>Log out</button>
 	</form>
