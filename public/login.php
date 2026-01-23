@@ -1,13 +1,8 @@
 <?php
 
 // Check if user is logged in already
-session_start();
+require_once(__DIR__.'/../app/includes/authentication.php');
 require_once(__DIR__.'/../app/includes/database.php');
-
-if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['hermes_user_id'])) {
-    header('Location: index.php');
-    die;
-}
 
 function validate_user_email($db, $email) {
     $errors = [];

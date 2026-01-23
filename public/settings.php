@@ -4,19 +4,8 @@
 // Displays all feeds
 // Allow users to add new feeds
 // Allow users to delete existing feeds
+require_once(__DIR__.'/../app/includes/authentication.php');
 require_once(__DIR__.'/../app/includes/database.php');
-
-session_start();
-$user_logged_in = false;
-
-// Grant privileges to authenticated user
-if (isset($_SESSION['hermes_user_id'])) {
-	$user_logged_in = true;
-} else {
-	header('Location: login.php');
-	die;
-}
-
 
 $result = $db->query('
 	SELECT id, title, url, last_fetched_at
