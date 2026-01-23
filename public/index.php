@@ -4,7 +4,7 @@
 date_default_timezone_set('America/Los_Angeles');
 
 require_once(__DIR__.'/../app/includes/authentication.php');
-require(__DIR__.'/../app/includes/database.php');
+require_once(__DIR__.'/../app/includes/database.php');
 
 $result = $db->query('
 	SELECT id, title
