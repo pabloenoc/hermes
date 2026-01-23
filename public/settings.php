@@ -74,19 +74,13 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
 </navbar>
 <main>
-	<div style="">
-		<h2 style="margin-bottom: 0;">My Feeds</h2>
-	</div>
-
-
-	<?php
-	if (isset($feeds[0])) {
-		$dt = new DateTime($feeds[0]['last_fetched_at'], new DateTimeZone('UTC'));
-		$dt->setTimezone(new DateTimeZone('America/Los_Angeles'));
-	}
-	?>
+	<h2 style="margin-bottom: 0;">My Feeds</h2>
 
 	<?php if (isset($feeds[0])): ?>
+		<?php 
+			$dt = new DateTime($feeds[0]['last_fetched_at'], new DateTimeZone('UTC'));
+			$dt->setTimezone(new DateTimeZone('America/Los_Angeles'));
+		?>
 		<p style=" color: gray; margin-top: 0.15rem;">
 			<small><?= count($feeds) ?> <?= count($feeds) > 1 ? "feeds" : "feed" ?> ◦ Updated <?= $dt->format('h:ia') ?></small>
 		</p>
@@ -101,7 +95,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 	<?php foreach ($feeds as $feed): ?>
 		<div class="feed flex justify-between">
 			<div>
-				<p class="feed__title"><?= $feed['title'] ?></p>
+				<p class="feed__title" style="font-weight: normal;"><?= $feed['title'] ?></p>
 				<p class="feed_url"><?= $feed['url'] ?></p>
 			</div>
 			<div>
@@ -111,6 +105,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 		</div>
 	<?php endforeach; ?>
 
+	<h2 style="margin-block: 2rem 0;">Account Options</h2>
 	<form method='post' action='/logout.php' style="margin-top: 2rem;">
 		<button type='submit' class='btn-submit'>Log out</button>
 	</form>
