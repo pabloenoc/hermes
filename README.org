@@ -7,6 +7,11 @@ Hermes is a web-based news aggregator with support for Atom and RSS formats. It 
 
 ** Changelog
 
+*** 2026-01-22
+- Continued project refactoring
+- Created logout script
+- Established partials convention
+
 *** 2026-01-21
 - Created a dedicated public/ directory as point of entry
 
