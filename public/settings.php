@@ -20,40 +20,10 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
 $page_title = 'Settings';
 require __DIR__ . '/../app/shared/_head.php';
+require __DIR__ . '/../app/shared/_navbar.php';
 ?>
 
-	<navbar>
-		<a href="/" class="flex" style="gap: 0.5rem; align-items: center; text-decoration: none; color: inherit;">
-			<img src="/images/hermes.webp" id="logo">
-			<h1>Settings</h1>
-		</a>
-
-		<a href="/" style="color:inherit; text-decoration: none;">
-		<!--
-		     tags: [save, file, disk]
-		     category: Devices
-		     version: "1.2"
-		     unicode: "eb62"
-			-->
-			<svg
-			class="ui-icon"
-			xmlns="http://www.w3.org/2000/svg"
-			width="32"
-			height="32"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			>
-			<path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
-			<path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-			<path d="M14 4l0 4l-6 0l0 -4" />
-		</svg>
-	</a>
-
-</navbar>
+	
 <main>
 	<h2 style="margin-bottom: 0;">My Feeds</h2>
 
