@@ -60,6 +60,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)) {
 	}
 }
 
+$page_title = 'Home';
 require __DIR__ . '/../app/shared/_head.php';
 ?>
 
