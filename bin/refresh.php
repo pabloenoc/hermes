@@ -43,7 +43,7 @@ foreach ($feeds as $feed) {
 
     if ($feed['format'] === 'rss') {
         foreach($parsed_feed->item as $item) {
-            $title = $item->title;
+            $title = $item->title ?? 'A post from ' . $feed['title'];
             $published_date = strtotime($item->pubDate);
             $guid = $item->guid;
             $url = $item->link;
@@ -54,7 +54,7 @@ foreach ($feeds as $feed) {
 
     if ($feed['format'] === 'atom') {
         foreach($parsed_feed->entry as $entry) {
-            $title = $entry->title;
+            $title = $entry->title ?? 'A post from ' . $feed['title'];
             $published_date = strtotime($entry->published);
             $guid = $entry->id;
             $url = $entry->link['href'];

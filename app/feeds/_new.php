@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
 
         if ($feed_format === 'rss') {
             foreach($feed->item as $item) {
-                $title = $item->title;
+                $title = $item->title ?? 'A post from ' . $feed->title;
                 $published_date = strtotime($item->pubDate);
                 $guid = $item->guid;
                 $url = $item->link;
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
 
         if ($feed_format === 'atom') {
             foreach($feed->entry as $entry) {
-                $title = $entry->title;
+                $title = $entry->title ?? 'A post from ' . $feed->title;
                 $published_date = (int)$entry->timestamp; // TODO: fix if empty
                 $guid = $entry->id;
                 $url = $entry->link['href'];
