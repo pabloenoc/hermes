@@ -9,7 +9,7 @@ Feed::$cacheDir = __DIR__ . '/../tmp/';
 Feed::$cacheExpire = '1 hour';
 
 $result = $db->query('
-    SELECT id, url, format
+    SELECT id, title, url, format
     FROM feeds
     ');
 
@@ -43,7 +43,7 @@ foreach ($feeds as $feed) {
 
     if ($feed['format'] === 'rss') {
         foreach($parsed_feed->item as $item) {
-            $title = $item->title ?? 'A post from ' . $feed['title'];
+            $title = $item->title ?? 'Post via ' . $feed['title'];
             $published_date = strtotime($item->pubDate);
             $guid = $item->guid;
             $url = $item->link;
@@ -54,7 +54,7 @@ foreach ($feeds as $feed) {
 
     if ($feed['format'] === 'atom') {
         foreach($parsed_feed->entry as $entry) {
-            $title = $entry->title ?? 'A post from ' . $feed['title'];
+            $title = $entry->title ?? 'Post via ' . $feed['title'];
             $published_date = strtotime($entry->published);
             $guid = $entry->id;
             $url = $entry->link['href'];
