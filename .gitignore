@@ -2,3 +2,4 @@ test.php
 tmp/
 *~
 db/*.sqlite
+vendor/
