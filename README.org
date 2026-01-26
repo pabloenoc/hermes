@@ -7,6 +7,9 @@ Hermes is a web-based news aggregator with support for Atom and RSS formats. It 
 
 ** Changelog
 
+*** 2026-01-25
+- Bugfix: parsing of <published> element in Atom feeds
+
 *** 2026-01-23
 - Refresh script bugfixes
 
@@ -38,7 +41,6 @@ Hermes is a web-based news aggregator with support for Atom and RSS formats. It 
 - Show date on entry when filter is not set to today
 - Add open graph image
 - Created advice script
-
 
 *** 2026-01-13
 - Add Expand / Collapse button on homepage
