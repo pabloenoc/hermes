@@ -19,37 +19,42 @@ function validate_feed_url(String $url): Array {
 }
 
 function save_feed_entries($db, $feed, $feed_id, $feed_format) {
+
+    $params = [
+        'feed_id' => $feed_id
+    ];
+
     if ($feed_format === 'rss') {
         foreach($feed->item as $item) {
-            $title = $item->title ?? 'Post via ' . $feed->title;
-            $published_date = strtotime($item->pubDate);
-            $guid = $item->guid;
-            $url = $item->link;
+            $params['title'] = $item->title ?? 'Post via ' . $feed->title;
+            $params['published_date'] = strtotime($item->pubDate);
+            $params['guid'] = $item->guid;
+            $params['url'] = $item->link;
 
-            save_feed_entry($db, $feed_id, $title, $published_date, $guid, $url);
+            save_feed_entry($db, $params);
         }
     }
 
     if ($feed_format === 'atom') {
         foreach($feed->entry as $entry) {
-            $title = $entry->title ?? 'Post via ' . $feed->title;
-            $published_date = strtotime($entry->published);
-            $guid = $entry->id;
-            $url = $entry->link['href'];
+            $params['title'] = $entry->title ?? 'Post via ' . $feed->title;
+            $params['published_date'] = strtotime($entry->published ?? $entry->updated);
+            $params['guid'] = $entry->id;
+            $params['url'] = $entry->link['href'];
 
-            save_feed_entry($db, $feed_id, $title, $published_date, $guid, $url);
+            save_feed_entry($db, $params);
         }
     }
 }
 
 // TODO: Create params array to keep function params cleaner
-function save_feed_entry($db, $feed_id, $title, $published_date, $guid, $url) {
+function save_feed_entry($db, $params) {
     $stmt = $db->prepare('INSERT OR IGNORE INTO entries (feed_id, title, published_date, guid, url) VALUES (:feed_id, :title, :published_date, :guid, :url)');
-    $stmt->bindValue(':feed_id', $feed_id, SQLITE3_INTEGER);
-    $stmt->bindValue(':title', $title, SQLITE3_TEXT);
-    $stmt->bindValue(':published_date', $published_date, SQLITE3_INTEGER);
-    $stmt->bindValue(':guid', $guid, SQLITE3_TEXT);
-    $stmt->bindValue(':url', $url, SQLITE3_TEXT);
+    $stmt->bindValue(':feed_id', $params['feed_id'], SQLITE3_INTEGER);
+    $stmt->bindValue(':title', $params['title'], SQLITE3_TEXT);
+    $stmt->bindValue(':published_date', $params['published_date'], SQLITE3_INTEGER);
+    $stmt->bindValue(':guid', $params['guid'], SQLITE3_TEXT);
+    $stmt->bindValue(':url', $params['url'], SQLITE3_TEXT);
     $stmt->execute();
 }
 
