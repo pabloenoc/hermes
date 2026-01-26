@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
         if ($feed_format === 'atom') {
             foreach($feed->entry as $entry) {
                 $title = $entry->title ?? 'Post via ' . $feed->title;
-                $published_date = (int)$entry->published;
+                $published_date = strtotime($entry->published);
                 $guid = $entry->id;
                 $url = $entry->link['href'];
 
