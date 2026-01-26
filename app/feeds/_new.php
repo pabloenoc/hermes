@@ -18,6 +18,30 @@ function validate_feed_url(String $url): Array {
     return $errors;
 }
 
+function save_feed_entries($db, $feed, $feed_id, $feed_format) {
+    if ($feed_format === 'rss') {
+        foreach($feed->item as $item) {
+            $title = $item->title ?? 'Post via ' . $feed->title;
+            $published_date = strtotime($item->pubDate);
+            $guid = $item->guid;
+            $url = $item->link;
+
+            save_feed_entry($db, $feed_id, $title, $published_date, $guid, $url);
+        }
+    }
+
+    if ($feed_format === 'atom') {
+        foreach($feed->entry as $entry) {
+            $title = $entry->title ?? 'Post via ' . $feed->title;
+            $published_date = strtotime($entry->published);
+            $guid = $entry->id;
+            $url = $entry->link['href'];
+
+            save_feed_entry($db, $feed_id, $title, $published_date, $guid, $url);
+        }
+    }
+}
+
 // TODO: Create params array to keep function params cleaner
 function save_feed_entry($db, $feed_id, $title, $published_date, $guid, $url) {
     $stmt = $db->prepare('INSERT OR IGNORE INTO entries (feed_id, title, published_date, guid, url) VALUES (:feed_id, :title, :published_date, :guid, :url)');
@@ -57,27 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_feed_url']))
         // INSERT this feed's entries INTO entries TABLE
         $feed_id = $db->lastInsertRowID();
 
-        if ($feed_format === 'rss') {
-            foreach($feed->item as $item) {
-                $title = $item->title ?? 'Post via ' . $feed->title;
-                $published_date = strtotime($item->pubDate);
-                $guid = $item->guid;
-                $url = $item->link;
-
-                save_feed_entry($db, $feed_id, $title, $published_date, $guid, $url);
-            }
-        }
-
-        if ($feed_format === 'atom') {
-            foreach($feed->entry as $entry) {
-                $title = $entry->title ?? 'Post via ' . $feed->title;
-                $published_date = strtotime($entry->published);
-                $guid = $entry->id;
-                $url = $entry->link['href'];
-
-                save_feed_entry($db, $feed_id, $title, $published_date, $guid, $url);
-            }
-        }
+        save_feed_entries($db, $feed, $feed_id, $feed_format);
 
         header('Location: ' . $_SERVER['REQUEST_URI']);
         exit;
