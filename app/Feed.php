@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hermes;
 
-final class HermesFeed
+final class Feed
 {
 
     private static \SQLITE3 $db;

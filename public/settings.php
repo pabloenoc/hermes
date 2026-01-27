@@ -9,9 +9,9 @@ require_once(__DIR__.'/../app/includes/authentication.php');
 require_once(__DIR__.'/../app/includes/database.php');
 
 
-use Hermes\HermesFeed;
+use Hermes\Feed;
 
-$feeds = HermesFeed::all();
+$feeds = Feed::all();
 
 $page_title = 'Settings';
 require __DIR__ . '/../app/shared/_head.php';
