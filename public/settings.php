@@ -4,10 +4,12 @@
 // Displays all feeds
 // Allow users to add new feeds
 // Allow users to delete existing feeds
+require_once(__DIR__.'/../vendor/autoload.php');
 require_once(__DIR__.'/../app/includes/authentication.php');
 require_once(__DIR__.'/../app/includes/database.php');
 
-require_once(__DIR__.'/../app/HermesFeed.php');
+
+use Hermes\HermesFeed;
 
 $feeds = HermesFeed::all();
 
