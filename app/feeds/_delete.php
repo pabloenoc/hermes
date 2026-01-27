@@ -1,19 +1,3 @@
-<?php
-
-// DELETES FEEDS when "form" (trash can icon) is submitted
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
-{
-    $stmt = $db->prepare('DELETE FROM feeds WHERE id = :id');
-    $stmt->bindValue(':id', (int)$_POST['delete_feed_id'], SQLITE3_INTEGER);
-    $stmt->execute();
-
-    header('Location: ' . $_SERVER['REQUEST_URI']);
-    exit;
-}
-
-?>
-
 <form method="post" style="margin:0;">
     <input type="hidden" name="delete_feed_id" value="<?= $feed['id'] ?>">
     <button type="submit" title="Delete feed" class="btn-delete" onclick="return confirm('Delete feed?')">
