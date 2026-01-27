@@ -7,8 +7,14 @@ Hermes is a web-based news aggregator with support for Atom and RSS formats. It 
 
 ** Changelog
 
+*** 2026-01-26
+- Began using PSR-4 autoload spec
+- Experiment with new directory structure for partials
+- Create Feed class under Hermes namespace to isolate db-related functions
+
 *** 2026-01-25
 - Bugfix: parsing of <published> element in Atom feeds
+- Add testing dev dependency
 
 *** 2026-01-23
 - Refresh script bugfixes
