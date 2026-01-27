@@ -1,4 +1,4 @@
-<form method="post" style="margin:0;">
+<form method="post" style="margin:0;" action="delete_feed.php">
     <input type="hidden" name="delete_feed_id" value="<?= $feed['id'] ?>">
     <button type="submit" title="Delete feed" class="btn-delete" onclick="return confirm('Delete feed?')">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__.'/../../lib/Feed.php');
+require_once(__DIR__.'/../../../lib/Feed.php');
 
 // CREATE FEED
 
