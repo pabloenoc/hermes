@@ -6,7 +6,7 @@
 // Allow users to delete existing feeds
 require_once(__DIR__.'/../vendor/autoload.php');
 require_once(__DIR__.'/../app/includes/authentication.php');
-require_once(__DIR__.'/../app/includes/database.php');
+require_once(__DIR__.'/../app/includes/database.php'); // _new.php depends on this
 
 
 use Hermes\Feed;
@@ -36,7 +36,7 @@ require __DIR__ . '/../app/shared/_navbar.php';
 		</p>
 	<?php endif ?>
 
-	<?php require __DIR__ . "/../app/feeds/_new.php"; ?>
+	<?php require __DIR__ . "/../app/templates/feeds/_new.php"; ?>
 
 	<?php foreach ($feeds as $feed): ?>
 		<div class="feed flex justify-between">
@@ -45,7 +45,7 @@ require __DIR__ . '/../app/shared/_navbar.php';
 				<p class="feed_url"><?= $feed['url'] ?></p>
 			</div>
 			<div>
-				<?php require __DIR__ . "/../app/feeds/_delete.php" ?>
+				<?php require __DIR__ . "/../app/templates/feeds/_delete.php" ?>
 			</div>
 
 		</div>
