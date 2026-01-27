@@ -1,5 +1,7 @@
 <?php
 
+// TODO: Database class ?
+
 declare(strict_types=1);
 
 namespace Hermes;
@@ -7,14 +9,17 @@ namespace Hermes;
 final class Feed
 {
 
-    private static \SQLITE3 $db;
+    private static \SQLite3 $db;
+
+    public static function connect()
+    {
+        self::$db = new \SQLite3(__DIR__ . '/../db/hrmss.sqlite');
+        self::$db->exec('PRAGMA foreign_keys = ON;');
+    }
 
     public static function all(): array
     {
-
-        self::$db = new \SQLITE3(__DIR__ . '/../db/hrmss.sqlite');
-        self::$db->exec('PRAGMA foreign_keys = ON;');
-
+        self::connect();
         $feeds = [];
         $result = self::$db->query('SELECT * FROM feeds');
 
@@ -28,9 +33,7 @@ final class Feed
 
     public static function delete(int $id): \SQLite3Result | false
     {
-        self::$db = new \SQLITE3(__DIR__ . '/../db/hrmss.sqlite');
-        self::$db->exec('PRAGMA foreign_keys = ON;');
-
+        self::connect();
         $stmt = self::$db->prepare('DELETE FROM feeds WHERE id = :id');
         $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
         return $stmt->execute();
