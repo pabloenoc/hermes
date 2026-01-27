@@ -7,16 +7,9 @@
 require_once(__DIR__.'/../app/includes/authentication.php');
 require_once(__DIR__.'/../app/includes/database.php');
 
-$result = $db->query('
-	SELECT id, title, url, last_fetched_at
-	FROM feeds
-	');
+require_once(__DIR__.'/../app/HermesFeed.php');
 
-$feeds = [];
-
-while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-	$feeds[] = $row;
-}
+$feeds = HermesFeed::all();
 
 $page_title = 'Settings';
 require __DIR__ . '/../app/shared/_head.php';
