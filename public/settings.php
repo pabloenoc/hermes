@@ -51,8 +51,8 @@ require __DIR__ . '/../app/shared/_navbar.php';
 		</div>
 	<?php endforeach; ?>
 
-	<h2 style="margin-block: 4rem">Account Options</h2>
-	<form method='post' action='/logout.php' style="margin-top: 2rem;">
+	<h2 style="margin-top: 4rem">Account Options</h2>
+	<form method='post' action='/logout.php' style="margin-bottom: 4rem;">
 		<button type='submit' class='btn-submit'>Log out</button>
 	</form>
 
