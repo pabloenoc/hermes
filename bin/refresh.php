@@ -2,71 +2,37 @@
 
 <?php
 
-require_once(__DIR__. '/../app/includes/database.php');
-require_once(__DIR__ . '/../lib/Feed.php');
+require_once(__DIR__.'/../vendor/autoload.php');
+require_once(__DIR__ . '/../app/includes/database.php');
+// require_once(__DIR__ . '/../lib/Feed.php');
 
-Feed::$cacheDir = __DIR__ . '/../tmp/';
-Feed::$cacheExpire = '1 hour';
+use Hermes\Feed;
 
-$result = $db->query('
-    SELECT id, title, url, format
-    FROM feeds
-    ');
+$feeds = Feed::all();
 
-$feeds = [];
-while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-    $feeds[] = $row;
-}
+$script_banner = <<<TEXT
+===================================================
+                R E F R E S H I N G 
+===================================================
 
-function save_feed_entry($db, $feed_id, $title, $published_date, $guid, $url) {
-    $stmt = $db->prepare('INSERT OR IGNORE INTO entries (feed_id, title, published_date, guid, url) VALUES (:feed_id, :title, :published_date, :guid, :url)');
-    $stmt->bindValue(':feed_id', $feed_id, SQLITE3_INTEGER);
-    $stmt->bindValue(':title', $title, SQLITE3_TEXT);
-    $stmt->bindValue(':published_date', $published_date, SQLITE3_INTEGER);
-    $stmt->bindValue(':guid', $guid, SQLITE3_TEXT);
-    $stmt->bindValue(':url', $url, SQLITE3_TEXT);
-    $stmt->execute();
-}
+TEXT;
 
-foreach ($feeds as $feed) {
-    echo "\nRefreshing {$feed['url']} ...\n";
+echo $script_banner;
 
-    $feed_id = $feed['id'];
+foreach($feeds as $feed)
+{
+    echo "\nRefreshing {$feed['url']}...\n";
 
-    try {
-        $parsed_feed = Feed::load($feed['url']);
-    }
-    catch(Exception $e) {
+    try 
+    {
+        Feed::refresh($feed['id']);
+    } 
+    catch(Exception $e)
+    {
         echo $e->getMessage();
         continue;
     }
 
-    if ($feed['format'] === 'rss') {
-        foreach($parsed_feed->item as $item) {
-            $title = $item->title ?? 'Post via ' . $feed['title'];
-            $published_date = strtotime($item->pubDate);
-            $guid = $item->guid;
-            $url = $item->link;
-
-            save_feed_entry($db, $feed_id, $title, $published_date, $guid, $url);
-        }
-    }
-
-    if ($feed['format'] === 'atom') {
-        foreach($parsed_feed->entry as $entry) {
-            $title = $entry->title ?? 'Post via ' . $feed['title'];
-            $published_date = strtotime($entry->published);
-            $guid = $entry->id;
-            $url = $entry->link['href'];
-
-            save_feed_entry($db, $feed_id, $title, $published_date, $guid, $url);
-        }
-    }
-
-    // Update last_fetched_at in feeds table
-    $stmt = $db->prepare('UPDATE feeds SET last_fetched_at = CURRENT_TIMESTAMP WHERE id = :id');
-    $stmt->bindValue(':id', $feed_id, SQLITE3_INTEGER);
-    $stmt->execute();
 }
 
 echo "\nFinished.\n";
