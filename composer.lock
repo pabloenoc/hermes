@@ -4,8 +4,55 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b12993d986a1446046c06d9bb8a30016",
-    "packages": [],
+    "content-hash": "ee71a67ea3c4621f07b89f7380c3113b",
+    "packages": [
+        {
+            "name": "dg/rss-php",
+            "version": "v1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dg/rss-php.git",
+                "reference": "18f00ab1828948a8cfe107729ca1f11c20129b47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dg/rss-php/zipball/18f00ab1828948a8cfe107729ca1f11c20129b47",
+                "reference": "18f00ab1828948a8cfe107729ca1f11c20129b47",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                }
+            ],
+            "description": "RSS & Atom Feeds for PHP is a very small and easy-to-use library for consuming an RSS and Atom feed",
+            "homepage": "https://github.com/dg/rss-php",
+            "keywords": [
+                "atom",
+                "feed",
+                "rss"
+            ],
+            "support": {
+                "source": "https://github.com/dg/rss-php/tree/v1.5"
+            },
+            "time": "2020-11-25T22:57:16+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "myclabs/deep-copy",
@@ -1692,5 +1739,5 @@
         "ext-sqlite3": "*"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
