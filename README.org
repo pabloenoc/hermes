@@ -4,8 +4,15 @@
 
 Hermes is a web-based news aggregator with support for Atom and RSS formats. It includes features such as date filters and a multi-column layout.
 
+** Disclaimer
+
+This project is an experiment in developing PHP applications without a full MVC framework. One of PHP's advantages is its "native" status in web development. It's a programming language with built-in support for the HTTP protocol, from templating within HTML to the management of requests, sessions and cookies through superglobals. It seems silly to reinvent the MVC pattern in PHP, eschewing its advantages in favor of a worse implementation of Ruby on Rails in a far more verbose programming language.
+
 
 ** Changelog
+
+*** 2026-01-27
+- Begin testing refresh.php
 
 *** 2026-01-26
 - Began using PSR-4 autoload spec
