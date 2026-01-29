@@ -11,6 +11,10 @@ This project is an experiment in developing PHP applications without a full MVC 
 
 ** Changelog
 
+*** 2026-01-28
+- Refactor refresh.php script to use Hermes\Feed class
+- Begin using dg/rss-php dependency from composer
+
 *** 2026-01-27
 - Begin testing refresh.php
 
