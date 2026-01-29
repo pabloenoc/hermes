@@ -1,14 +1,8 @@
 <?php
 
-// TODO: Database class ?
-
-// Feed::refresh($feed_id);
-
 declare(strict_types=1);
 
 namespace Hermes;
-
-// can I do this?
 
 // would be a good name for a php project about rss feeds lol
 use \Feed as PhosphoRSS;
@@ -58,8 +52,6 @@ final class Feed
 
     public static function save_entry(int $feed_id, array $entry): void
     {
-//        self::connect();
-
         $stmt = self::$db->prepare('INSERT OR IGNORE INTO entries (feed_id, title, published_date, guid, url) VALUES (:feed_id, :title, :published_date, :guid, :url)');
 
         $stmt->bindValue(':feed_id', $entry['feed_id'], SQLITE3_INTEGER);
