@@ -6,6 +6,9 @@ require_once(__DIR__.'/../vendor/autoload.php');
 
 use Hermes\Feed;
 
+$db = new SQLITE3(__DIR__.'/../db/hrmss.sqlite');
+Feed::set_database($db);
+
 $feeds = Feed::all();
 
 $script_banner = <<<TEXT
