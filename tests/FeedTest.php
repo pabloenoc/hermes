@@ -34,4 +34,10 @@ final class FeedTest extends TestCase
         $feed = Feed::find_by_id(4);
         $this->assertIsArray($feed);
     }
+
+    public function test_find_by_id_error_handling(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $feed = Feed::find_by_id(99);
+    }
 }
