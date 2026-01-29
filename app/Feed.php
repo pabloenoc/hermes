@@ -10,19 +10,28 @@ use \Feed as PhosphoRSS;
 final class Feed
 {
 
-    private static \SQLite3 $db;
+    private static ?\SQLite3 $db = null;
 
-    public static function connect()
+    public static function set_database(\SQLite3 $db): void
     {
-        self::$db = new \SQLite3(__DIR__ . '/../db/hrmss.sqlite');
+        self::$db = $db;
         self::$db->exec('PRAGMA foreign_keys = ON;');
+    }
+
+    private static function db(): \SQLite3
+    {
+        if (!self::$db)
+        {
+            throw new \RuntimeException('Database not set');
+        }
+
+        return self::$db;
     }
 
     public static function all(): array
     {
-        self::connect();
         $feeds = [];
-        $result = self::$db->query('SELECT * FROM feeds');
+        $result = self::db()->query('SELECT * FROM feeds');
 
         while($row = $result->fetchArray(SQLITE3_ASSOC))
         {
@@ -34,25 +43,29 @@ final class Feed
 
     public static function delete(int $id): \SQLite3Result | false
     {
-        self::connect();
-        $stmt = self::$db->prepare('DELETE FROM feeds WHERE id = :id');
+        $stmt = self::db()->prepare('DELETE FROM feeds WHERE id = :id');
         $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
         return $stmt->execute();
     }
 
-    public static function find_by_id(int $id): ?array
+    public static function find_by_id(int $id): array
     {
-        self::connect();
-        $stmt = self::$db->prepare('SELECT * FROM feeds WHERE id = :id');
+        $stmt = self::db()->prepare('SELECT * FROM feeds WHERE id = :id');
         $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
         $result = $stmt->execute();
         $row = $result->fetchArray(SQLITE3_ASSOC);
-        return $row ?: null;
+
+        if (!$row)
+        {
+            throw new \RuntimeException("Feed with ID {$id} not found\n");
+        }
+
+        return $row;
     }
 
     public static function save_entry(int $feed_id, array $entry): void
     {
-        $stmt = self::$db->prepare('INSERT OR IGNORE INTO entries (feed_id, title, published_date, guid, url) VALUES (:feed_id, :title, :published_date, :guid, :url)');
+        $stmt = self::db()->prepare('INSERT OR IGNORE INTO entries (feed_id, title, published_date, guid, url) VALUES (:feed_id, :title, :published_date, :guid, :url)');
 
         $stmt->bindValue(':feed_id', $entry['feed_id'], SQLITE3_INTEGER);
         $stmt->bindValue(':title', $entry['title'], SQLITE3_TEXT);
@@ -64,13 +77,7 @@ final class Feed
 
     public static function refresh(int $id): void
     {
-        self::connect();
         $feed = self::find_by_id($id);
-
-        if (is_null($feed)) 
-        {
-            throw new \RuntimeException("Feed with ID {$id} not found");
-        }
 
         try 
         {
@@ -113,7 +120,7 @@ final class Feed
             }
         }
 
-        $stmt = self::$db->prepare('UPDATE feeds SET last_fetched_at = CURRENT_TIMESTAMP WHERE id = :id');
+        $stmt = self::db()->prepare('UPDATE feeds SET last_fetched_at = CURRENT_TIMESTAMP WHERE id = :id');
         $stmt->bindValue(':id', $feed['id'], SQLITE3_INTEGER);
         $stmt->execute();
     }
