@@ -23,9 +23,7 @@ final class FeedTest extends TestCase
         // Seed data with IDs 1...10
         for ($i = 1; $i <= 10; $i++)
         {
-            $this->db->exec(
-                "INSERT INTO feeds (url) VALUES ('https://example.com/feed{$i}.xml')"
-            );
+            $this->db->exec("INSERT INTO feeds (url) VALUES ('https://example.com/feed{$i}.xml')");
         }
 
         Feed::set_database($this->db);
