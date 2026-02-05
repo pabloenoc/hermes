@@ -1,8 +1,6 @@
 <?php
 
-require_once(__DIR__.'/../vendor/autoload.php');
-require_once(__DIR__.'/../app/includes/database.php');
-
+require_once __DIR__ . '/../app/bootstrap.php';
 use Hermes\Feed;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_feed_id']))
