@@ -3,13 +3,13 @@
 // TODO: Move to config
 date_default_timezone_set('America/Los_Angeles');
 
+require_once __DIR__ . '/../app/bootstrap.php';
 require_once(__DIR__.'/../app/includes/authentication.php');
-require_once(__DIR__.'/../app/includes/database.php');
 
 $result = $db->query('
 	SELECT id, title
 	FROM feeds
-	');
+');
 
 $feeds = []; 
 while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
