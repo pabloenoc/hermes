@@ -11,6 +11,10 @@ This project is an experiment in developing PHP applications without a full MVC 
 
 ** Changelog
 
+*** 2026-02-05
+- Created bootstrap file
+- Reduce require statements on front controller files  
+
 *** 2026-01-29
 - Refactor Feed model to decouple from db file
 - Begin Feed model testing
