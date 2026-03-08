@@ -11,6 +11,9 @@ This project is an experiment in developing PHP applications without a full MVC 
 
 ** Changelog
 
+*** 2026-03-08
+- Updated styles for select element on Safari
+
 *** 2026-02-12
 - Made navbar sticky
 
