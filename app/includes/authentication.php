@@ -1,7 +1,7 @@
 <?php
-// 1 day lifetime
-ini_set('session.gc_maxlifetime', 86400);
-ini_set('session.cookie_lifetime', 86400);
+// 1 week lifetime in seconds
+ini_set('session.gc_maxlifetime', 604800);
+ini_set('session.cookie_lifetime', 604800);
 session_start();
 
 
