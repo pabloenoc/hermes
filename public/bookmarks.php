@@ -64,48 +64,36 @@ require __DIR__ . '/../app/shared/_navbar.php';
 
 	    <p style="margin: 0;">You have no bookmarks yet!</p>
 	</div>
-    <?php endif; ?>
+        <?php endif; ?>
 
-    <main class="grid-3" style="padding-inline: 0;">
-	<?php foreach ($feeds as $feed): ?>
+<main class="grid-3" style="padding-inline: 0;">
+    <?php foreach ($feeds as $feed): ?>
 
-		<?php if (empty($feed['entries'])): ?>
-		    <?php continue ?>
-		<?php else: ?>
+	<?php if (empty($feed['entries'])): ?>
+	    <?php continue ?>
+	<?php else: ?>
 
-		    <div class="feed" >
-			<details open>
-			    <summary class="feed__title"><?= htmlspecialchars($feed['title']) ?></summary>
-			    <?php foreach($feed['entries'] as $entry): ?>
-				<div class="post">
-				    <?php if ($filter === 'today'): ?>
-					<?php if (str_contains($entry['guid'], "ycombinator") || str_contains($entry['guid'], "lobste.rs")): ?>
-					    <p class="post__date"><a class="techie-site-link" href="<?= $entry['guid'] ?>" ><?= htmlspecialchars(date("h:ia", $entry['published_date'])) ?></a></p>
-					<?php else: ?>
-					    <p class="post__date"><?= htmlspecialchars(date("h:ia", $entry['published_date'])) ?></p>
-					<?php endif; ?>
+	    <div class="feed" >
+		<details open>
+		    <summary class="feed__title"><?= htmlspecialchars($feed['title']) ?></summary>
+		    <?php foreach($feed['entries'] as $entry): ?>
+			<div class="post">
+			    <?php if (str_contains($entry['guid'], "ycombinator") || str_contains($entry['guid'], "lobste.rs")): ?>
+				<p class="post__date"><a class="techie-site-link" href="<?= $entry['guid'] ?>"><?= htmlspecialchars(date("d M · h:ia", $entry['published_date'])) ?></a></p>
+			    <?php else: ?>
+				<p class="post__date"><?= htmlspecialchars(date("d M · h:ia", $entry['published_date'])) ?></p>
+			    <?php endif ?>
 
-				    <?php else: ?>
-					<?php if (str_contains($entry['guid'], "ycombinator") || str_contains($entry['guid'], "lobste.rs")): ?>
-					    <p class="post__date"><a class="techie-site-link" href="<?= $entry['guid'] ?>"><?= htmlspecialchars(date("d M · h:ia", $entry['published_date'])) ?></a></p>
-					<?php else: ?>
-					    <p class="post__date"><?= htmlspecialchars(date("d M · h:ia", $entry['published_date'])) ?></p>
-					<?php endif ?>
-					
-				    <?php endif; ?>
-				    <p class="post__title"><a target="_blank" href="<?= htmlspecialchars($entry['url']) ?>" class="post__link"><?= htmlspecialchars($entry['title']); ?></a></p>
-				    <?php if ($filter === 'today'): ?>
-					<?php include "mark_entry_as_read.php" ?>
-				    <?php endif ?>
-				</div>
-												    <?php endforeach; ?>
-			</details>
-		    </div>
-		<?php endif ?>
-			
-		    
-	<?php endforeach; ?>
-    </main>
+			    <p class="post__title"><a target="_blank" href="<?= htmlspecialchars($entry['url']) ?>" class="post__link"><?= htmlspecialchars($entry['title']); ?></a></p>
+			</div>
+		    <?php endforeach; ?>
+		</details>
+	    </div>
+	<?php endif ?>
+	
+	
+    <?php endforeach; ?>
+</main>
 
 </main>
 </body>
