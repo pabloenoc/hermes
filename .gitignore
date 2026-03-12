@@ -4,3 +4,5 @@ tmp/
 db/*.sqlite
 vendor/
 DEVLOG.org
+.DS_Store
+**/.DS_Store
