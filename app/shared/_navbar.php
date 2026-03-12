@@ -4,6 +4,26 @@
         <h1><?= $page_title ?? 'Title' ?></h1>
     </a>
 
+    <div style="display: flex; gap: 1rem; align-items: center;">
+	<a href="/bookmarks.php">
+	    <!-- bookmarks icon -->
+	    <svg
+		class="ui-icon"
+		xmlns="http://www.w3.org/2000/svg"
+		width="32"
+		height="32"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="1.5"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+	    >
+		<path d="M15 10v11l-5 -3l-5 3v-11a3 3 0 0 1 3 -3h4a3 3 0 0 1 3 3z" />
+		<path d="M11 3h5a3 3 0 0 1 3 3v11" />
+	    </svg>
+
+	</a>
     <?php if ($_SERVER['SCRIPT_NAME'] === '/settings.php'): ?>
         <a href="/" style="color:inherit; text-decoration: none;">
             <!--floppy disk -->
@@ -43,6 +63,6 @@
             </svg>
         </a>
     <?php endif ?>
-
+    </div>
     
 </navbar>
