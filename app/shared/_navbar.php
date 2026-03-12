@@ -6,7 +6,7 @@
 
     <?php if ($_SERVER['SCRIPT_NAME'] === '/settings.php'): ?>
         <a href="/" style="color:inherit; text-decoration: none;">
-            <!--floopy disk -->
+            <!--floppy disk -->
                 <svg
                 class="ui-icon"
                 xmlns="http://www.w3.org/2000/svg"
