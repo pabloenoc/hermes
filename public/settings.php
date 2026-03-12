@@ -51,10 +51,6 @@ require __DIR__ . '/../app/shared/_navbar.php';
 		<button type='submit' class='btn-submit'>Log out</button>
 	</form>
 
-	<p><small>Dokku test.</small></p>
-
-
-
 </main>
 </body>
 </html>
