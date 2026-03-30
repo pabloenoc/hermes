@@ -4,6 +4,7 @@
         <h1><?= $page_title ?? 'Title' ?></h1>
     </a>
 
+    <?php if($authenticated): ?>
     <div style="display: flex; gap: 1rem; align-items: center;">
 	<a href="/bookmarks.php">
 	    <!-- bookmarks icon -->
@@ -64,5 +65,5 @@
         </a>
     <?php endif ?>
     </div>
-    
+    <?php endif; ?>
 </navbar>
